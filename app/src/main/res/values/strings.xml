@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">IlliaNaumov</string>
+
+    <string name="oop_test_text">Object-oriented programming (OOP) is a programming paradigm based on the concept of "objects", which may contain data, in the form of fields, often known as attributes; and code, in the form of procedures, often known as methods. A feature of objects is that an object\'s procedures can access and often modify the data fields of the object with which they are associated (objects have a notion of "this" or "self"). In OOP, computer programs are designed by making them out of objects that interact with one another.[1][2] There is significant diversity of OOP languages, but the most popular ones are class-based, meaning that objects are instances of classes, which typically also determine their type.
+
+    Many of the most widely used programming languages (such as C++, Delphi, Java, Python etc.) are multi-paradigm programming languages that support object-oriented programming to a greater or lesser degree, typically in combination with imperative, procedural programming. Significant object-oriented languages include Java, C++, C#, Python, PHP, Ruby, Perl, Object Pascal, Objective-C, Dart, Swift, Scala, Common Lisp, and Smalltalk.
+    Shared with non-OOP predecessor languages[edit]
+    Object-oriented programming languages typically share low-level features with high-level
+    procedural programming languages (which were invented first). The fundamental tools that can be
+    used to construct a program include:
+
+    Variables that can store information formatted in a small number of built-in data types like
+    integers and alphanumeric characters. This may include data structures like strings, lists, and
+    hash tables that are either built-in or result from combining variables using memory pointers
+    Procedures – also known as functions, methods, routines, or subroutines – that take input,
+    generate output, and manipulate data. Modern languages include structured programming constructs
+    like loops and conditionals.
+    Modular programming support provides the ability to group procedures into files and modules for
+    organizational purposes. Modules are namespaced so code in one module will not be accidentally
+    confused with the same procedure or variable name in another file or module.</string>
 </resources>
