@@ -19,7 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.TransitionImageSecondActivity" />
+        <activity android:name=".view.TransitionImageSecondActivity" android:parentActivityName=".view.MainActivity"/>
     </application>
 
 </manifest>

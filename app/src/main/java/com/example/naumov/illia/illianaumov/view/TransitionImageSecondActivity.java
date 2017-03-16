@@ -1,6 +1,7 @@
 package com.example.naumov.illia.illianaumov.view;
 
 import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,12 +56,13 @@ public class TransitionImageSecondActivity extends AppCompatActivity {
         txtNewsPost.setText(newsPostText);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                onBackPressed();
+                finishAfterTransition();
                 return true;
         }
         return super.onOptionsItemSelected(item);
