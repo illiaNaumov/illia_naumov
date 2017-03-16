@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.example.naumov.illia.illianaumov.R;
 import com.example.naumov.illia.illianaumov.adapter.TestStringAdapter;
@@ -21,7 +20,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements TestStringAdapter.OnNewsPostClickedListener {
+public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.recycler_view)
     RecyclerView rvTestString;
@@ -47,22 +46,23 @@ public class MainActivity extends AppCompatActivity implements TestStringAdapter
 
         TestStringAdapter testStringAdapter = new TestStringAdapter(this);
         testStringAdapter.setNewsPostList(newsPostList);
-        testStringAdapter.setOnNewsPostClickedListener(this);
         rvTestString.setAdapter(testStringAdapter);
 
+        ItemClickSupport.addTo(rvTestString).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                ActivityOptions transitionActivityOptions;
+                if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                    transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, v.findViewById(R.id.image_view),
+                            "transitionName");
 
-    }
+                    Intent intent = new Intent(MainActivity.this, TransitionImageSecondActivity.class);
+                    intent.putExtra("news_post", newsPostList.get(position));
+                    startActivity(intent, transitionActivityOptions.toBundle());
+                }
+            }
+        });
 
-    @Override
-    public void onNewsPostClicked(NewsPost newsPost, ImageView imageView) {
-        ActivityOptions transitionActivityOptions;
-        if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, imageView,
-                    "transitionName");
 
-            Intent intent = new Intent(MainActivity.this, TransitionImageSecondActivity.class);
-            intent.putExtra("news_post", newsPost);
-            startActivity(intent, transitionActivityOptions.toBundle());
-        }
     }
 }
