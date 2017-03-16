@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import com.example.naumov.illia.illianaumov.R;
 import com.example.naumov.illia.illianaumov.domain.NewsPost;
-import com.example.naumov.illia.illianaumov.loader.NewsLoader;
-import com.example.naumov.illia.illianaumov.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 
@@ -34,21 +32,25 @@ public class TestStringAdapter extends RecyclerView.Adapter <RecyclerView.ViewHo
     private static final int HEADER_TYPE = 0;
     private static final int LIST_ITEM_TYPE = 1;
 
-
     private Context mContext;
     private List<NewsPost> newsPostList;
     private LayoutInflater layoutInflater;
-    private final View.OnClickListener mOnClickListener;
+    private OnNewsPostClickedListener onNewsPostClickedListener;
 
     private int lastPosition;
 
-    public TestStringAdapter(Context context, List<NewsPost> newsPostList) {
+    public TestStringAdapter(Context context) {
         this.mContext = context;
-        this.newsPostList = newsPostList;
 
         layoutInflater = LayoutInflater.from(mContext);
+    }
 
-        mOnClickListener = (View.OnClickListener) mContext;
+    public void setOnNewsPostClickedListener(OnNewsPostClickedListener onNewsPostClickedListener) {
+        this.onNewsPostClickedListener = onNewsPostClickedListener;
+    }
+
+    public void setNewsPostList(List<NewsPost> newsPostList) {
+        this.newsPostList = newsPostList;
     }
 
     @Override
@@ -58,11 +60,9 @@ public class TestStringAdapter extends RecyclerView.Adapter <RecyclerView.ViewHo
         switch(viewType){
             case HEADER_TYPE:
                 v = layoutInflater.inflate(R.layout.recycler_view_header, parent, false);
-                v.setOnClickListener(mOnClickListener);
                 return new TestStringViewHeaderHolder(v);
             case LIST_ITEM_TYPE:
                 v = layoutInflater.inflate(R.layout.recycler_view_item, parent, false);
-                v.setOnClickListener(mOnClickListener);
                 return new TestStringViewHolder(v);
         }
 
@@ -74,15 +74,11 @@ public class TestStringAdapter extends RecyclerView.Adapter <RecyclerView.ViewHo
 
         if(holder instanceof TestStringViewHeaderHolder){
 
-            Picasso.with(((TestStringViewHeaderHolder) holder).ivTest.getContext())
-                    .load(newsPostList.get(position).getImageUrl()).into(((TestStringViewHeaderHolder) holder).ivTest);
+            ((TestStringViewHeaderHolder) holder).onBind(newsPostList.get(position), onNewsPostClickedListener);
 
         }else if(holder instanceof TestStringViewHolder){
 
-            Picasso.with(((TestStringViewHolder) holder).ivTest.getContext())
-                    .load(newsPostList.get(position).getImageUrl()).into(((TestStringViewHolder) holder).ivTest);
-
-            ((TestStringViewHolder) holder).tvDate.setText(new SimpleDateFormat("dd.MM.yyyy", Locale.US).format(Calendar.getInstance().getTime()));
+            ((TestStringViewHolder) holder).onBind(newsPostList.get(position), onNewsPostClickedListener);
 
         }
 
@@ -129,9 +125,22 @@ public class TestStringAdapter extends RecyclerView.Adapter <RecyclerView.ViewHo
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
+
+        void onBind(final NewsPost newsPost, final OnNewsPostClickedListener onNewsPostClickedListener){
+            Picasso.with(ivTest.getContext())
+                    .load(newsPost.getImageUrl()).into(ivTest);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onNewsPostClickedListener.onNewsPostClicked(newsPost, ivTest);
+                }
+            });
+        }
     }
 
     static class TestStringViewHolder extends RecyclerView.ViewHolder{
+        View itemView;
         @BindView(R.id.image_view)
         ImageView ivTest;
         @BindView(R.id.date)
@@ -139,10 +148,27 @@ public class TestStringAdapter extends RecyclerView.Adapter <RecyclerView.ViewHo
 
         TestStringViewHolder(View itemView) {
             super(itemView);
+            this.itemView = itemView;
             ButterKnife.bind(this, itemView);
         }
 
+        void onBind(final NewsPost newsPost, final OnNewsPostClickedListener onNewsPostClickedListener){
+            Picasso.with(ivTest.getContext())
+                    .load(newsPost.getImageUrl()).into(ivTest);
 
+            tvDate.setText(new SimpleDateFormat("dd.MM.yyyy", Locale.US).format(Calendar.getInstance().getTime()));
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onNewsPostClickedListener.onNewsPostClicked(newsPost, ivTest);
+                }
+            });
+        }
+    }
+
+    public interface OnNewsPostClickedListener{
+        void onNewsPostClicked(NewsPost newsPost, ImageView imageView);
     }
 
 }

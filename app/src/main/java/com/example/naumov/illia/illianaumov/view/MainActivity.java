@@ -21,7 +21,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements TestStringAdapter.OnNewsPostClickedListener {
 
     @BindView(R.id.recycler_view)
     RecyclerView rvTestString;
@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Toolbar toolbar;
 
     private List<NewsPost> newsPostList;
+
 
 
     @Override
@@ -43,22 +44,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         newsPostList = NewsLoader.generateNews();
 
         rvTestString.setLayoutManager(new LinearLayoutManager(this));
-        rvTestString.setAdapter(new TestStringAdapter(this, newsPostList));
+
+        TestStringAdapter testStringAdapter = new TestStringAdapter(this);
+        testStringAdapter.setNewsPostList(newsPostList);
+        testStringAdapter.setOnNewsPostClickedListener(this);
+        rvTestString.setAdapter(testStringAdapter);
+
+
     }
 
     @Override
-    public void onClick(final View view) {
-
+    public void onNewsPostClicked(NewsPost newsPost, ImageView imageView) {
         ActivityOptions transitionActivityOptions;
         if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-            ImageView imageView = (ImageView) view.findViewById(R.id.image_view);
             transitionActivityOptions = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, imageView,
                     "transitionName");
 
             Intent intent = new Intent(MainActivity.this, TransitionImageSecondActivity.class);
-            intent.putExtra("news_post", newsPostList.get(rvTestString.getChildAdapterPosition(view)));
-            startActivity(intent,
-                    transitionActivityOptions.toBundle());
+            intent.putExtra("news_post", newsPost);
+            startActivity(intent, transitionActivityOptions.toBundle());
         }
     }
 }

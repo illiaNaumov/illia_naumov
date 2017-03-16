@@ -3,6 +3,7 @@ package com.example.naumov.illia.illianaumov.di.module;
 import android.content.Context;
 import android.support.v4.content.res.ResourcesCompat;
 
+import com.example.naumov.illia.illianaumov.MyApp;
 import com.example.naumov.illia.illianaumov.R;
 
 import javax.inject.Singleton;
@@ -17,9 +18,9 @@ import dagger.Provides;
 @Module
 public class NewsManagerModule {
 
-    Context context;
+    private Context context;
 
-    public NewsManagerModule(Context context) {
+    public NewsManagerModule(MyApp context) {
         this.context = context;
     }
 
@@ -29,7 +30,7 @@ public class NewsManagerModule {
     }
 
     @Provides @Singleton
-    public Context provideAppContext(){
+    Context provideAppContext(){
         return context;
     }
 }
