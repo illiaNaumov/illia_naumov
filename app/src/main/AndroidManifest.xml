@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.MainActivity"
+            android:name=".main.view.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,12 +21,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.TransitionImageSecondActivity"
-            android:parentActivityName=".view.TransitionImageFirstActivity" />
+            android:name=".transitionimage.view.TransitionImageSecondActivity"
+            android:parentActivityName=".transitionimage.view.TransitionImageFirstActivity" />
         <activity
-            android:name=".view.TransitionImageFirstActivity"
-            android:parentActivityName=".view.MainActivity" />
-        <activity android:name=".view.CurrencyActivity" android:parentActivityName=".view.MainActivity"/>
+            android:name=".transitionimage.view.TransitionImageFirstActivity"
+            android:parentActivityName=".main.view.MainActivity" />
+        <activity android:name=".currencyrates.view.CurrencyActivity" android:parentActivityName=".main.view.MainActivity"/>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.naumov.illia.illianaumov.view;
+package com.example.naumov.illia.illianaumov.transitionimage.view;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
@@ -11,9 +11,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.naumov.illia.illianaumov.R;
-import com.example.naumov.illia.illianaumov.adapter.TestStringAdapter;
-import com.example.naumov.illia.illianaumov.domain.NewsPost;
-import com.example.naumov.illia.illianaumov.loader.NewsLoader;
+import com.example.naumov.illia.illianaumov.transitionimage.view.adapter.TestStringAdapter;
+import com.example.naumov.illia.illianaumov.transitionimage.domain.NewsPost;
+import com.example.naumov.illia.illianaumov.transitionimage.model.NewsLoader;
 
 import java.util.List;
 

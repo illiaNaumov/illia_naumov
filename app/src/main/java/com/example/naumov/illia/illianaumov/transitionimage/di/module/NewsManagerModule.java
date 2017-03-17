@@ -1,7 +1,6 @@
-package com.example.naumov.illia.illianaumov.di.module;
+package com.example.naumov.illia.illianaumov.transitionimage.di.module;
 
 import android.content.Context;
-import android.support.v4.content.res.ResourcesCompat;
 
 import com.example.naumov.illia.illianaumov.MyApp;
 import com.example.naumov.illia.illianaumov.R;

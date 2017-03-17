@@ -1,4 +1,4 @@
-package com.example.naumov.illia.illianaumov.view;
+package com.example.naumov.illia.illianaumov.main.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.example.naumov.illia.illianaumov.R;
+import com.example.naumov.illia.illianaumov.currencyrates.view.CurrencyActivity;
+import com.example.naumov.illia.illianaumov.transitionimage.view.TransitionImageFirstActivity;
 
 
 import butterknife.BindView;

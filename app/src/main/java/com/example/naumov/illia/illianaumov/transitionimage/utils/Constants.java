@@ -1,4 +1,4 @@
-package com.example.naumov.illia.illianaumov.utils;
+package com.example.naumov.illia.illianaumov.transitionimage.utils;
 
 /**
  * Created by illia_naumov.

@@ -1,8 +1,7 @@
-package com.example.naumov.illia.illianaumov.view;
+package com.example.naumov.illia.illianaumov.transitionimage.view;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -12,9 +11,7 @@ import android.widget.TextView;
 
 import com.example.naumov.illia.illianaumov.MyApp;
 import com.example.naumov.illia.illianaumov.R;
-import com.example.naumov.illia.illianaumov.adapter.TestStringAdapter;
-import com.example.naumov.illia.illianaumov.domain.NewsPost;
-import com.example.naumov.illia.illianaumov.utils.Constants;
+import com.example.naumov.illia.illianaumov.transitionimage.domain.NewsPost;
 import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;

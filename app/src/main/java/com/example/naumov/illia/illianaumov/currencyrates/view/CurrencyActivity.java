@@ -1,4 +1,4 @@
-package com.example.naumov.illia.illianaumov.view;
+package com.example.naumov.illia.illianaumov.currencyrates.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

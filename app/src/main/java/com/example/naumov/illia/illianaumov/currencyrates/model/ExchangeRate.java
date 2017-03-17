@@ -1,5 +1,5 @@
 
-package com.example.naumov.illia.illianaumov.model;
+package com.example.naumov.illia.illianaumov.currencyrates.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

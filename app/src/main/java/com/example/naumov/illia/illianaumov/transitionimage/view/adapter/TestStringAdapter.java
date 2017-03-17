@@ -1,4 +1,4 @@
-package com.example.naumov.illia.illianaumov.adapter;
+package com.example.naumov.illia.illianaumov.transitionimage.view.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.naumov.illia.illianaumov.R;
-import com.example.naumov.illia.illianaumov.domain.NewsPost;
+import com.example.naumov.illia.illianaumov.transitionimage.domain.NewsPost;
 import com.squareup.picasso.Picasso;
 
 

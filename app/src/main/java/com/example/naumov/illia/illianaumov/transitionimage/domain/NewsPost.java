@@ -1,4 +1,4 @@
-package com.example.naumov.illia.illianaumov.domain;
+package com.example.naumov.illia.illianaumov.transitionimage.domain;
 
 import android.os.Parcel;
 import android.os.Parcelable;

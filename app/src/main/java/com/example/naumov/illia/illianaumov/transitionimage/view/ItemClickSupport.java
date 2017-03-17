@@ -1,4 +1,4 @@
-package com.example.naumov.illia.illianaumov.view;
+package com.example.naumov.illia.illianaumov.transitionimage.view;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

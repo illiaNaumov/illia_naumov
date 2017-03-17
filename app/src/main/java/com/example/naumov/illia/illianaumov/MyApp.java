@@ -2,9 +2,9 @@ package com.example.naumov.illia.illianaumov;
 
 import android.app.Application;
 
-import com.example.naumov.illia.illianaumov.di.component.DaggerNewsManagerComponent;
-import com.example.naumov.illia.illianaumov.di.component.NewsManagerComponent;
-import com.example.naumov.illia.illianaumov.di.module.NewsManagerModule;
+import com.example.naumov.illia.illianaumov.transitionimage.di.component.DaggerNewsManagerComponent;
+import com.example.naumov.illia.illianaumov.transitionimage.di.component.NewsManagerComponent;
+import com.example.naumov.illia.illianaumov.transitionimage.di.module.NewsManagerModule;
 
 /**
  * Created by illia_naumov.
