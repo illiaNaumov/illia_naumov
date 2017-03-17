@@ -28,12 +28,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @OnClick(R.id.button1)
+    @OnClick({R.id.button1, R.id.button2, R.id.button3})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.button1:
                 Intent intent = new Intent(this, TransitionImageFirstActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.button2:
+                Intent intent1 = new Intent(this, CurrencyActivity.class);
+                startActivity(intent1);
                 break;
         }
     }
