@@ -1,5 +1,5 @@
 
-package com.example.naumov.illia.illianaumov.currencyrates.model;
+package com.example.naumov.illia.illianaumov.currencyrates.domain;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

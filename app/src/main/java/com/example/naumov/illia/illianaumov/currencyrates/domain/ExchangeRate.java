@@ -1,5 +1,5 @@
 
-package com.example.naumov.illia.illianaumov.currencyrates.model;
+package com.example.naumov.illia.illianaumov.currencyrates.domain;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -20,7 +20,7 @@ public class ExchangeRate {
     private Double purchaseRateNB;
     @SerializedName("saleRate")
     @Expose
-    private Integer saleRate;
+    private Double saleRate;
     @SerializedName("purchaseRate")
     @Expose
     private Double purchaseRate;
@@ -41,7 +41,7 @@ public class ExchangeRate {
      * @param saleRateNB
      * @param currency
      */
-    public ExchangeRate(String baseCurrency, String currency, Double saleRateNB, Double purchaseRateNB, Integer saleRate, Double purchaseRate) {
+    public ExchangeRate(String baseCurrency, String currency, Double saleRateNB, Double purchaseRateNB, Double saleRate, Double purchaseRate) {
         super();
         this.baseCurrency = baseCurrency;
         this.currency = currency;
@@ -83,11 +83,11 @@ public class ExchangeRate {
         this.purchaseRateNB = purchaseRateNB;
     }
 
-    public Integer getSaleRate() {
+    public Double getSaleRate() {
         return saleRate;
     }
 
-    public void setSaleRate(Integer saleRate) {
+    public void setSaleRate(Double saleRate) {
         this.saleRate = saleRate;
     }
 
