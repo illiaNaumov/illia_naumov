@@ -60,6 +60,7 @@
                 android:layout_height="36dp"
                 android:inputType="text"
                 android:hint="Choose date"
+                android:focusable="false"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"/>
             <Button
