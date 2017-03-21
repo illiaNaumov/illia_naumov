@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MainMenu" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:textColorSecondary">@color/white</item>
+    </style>
+
 </resources>

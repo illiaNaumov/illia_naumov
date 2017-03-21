@@ -10,4 +10,6 @@ import java.util.List;
 
 public interface CurrencyView {
     void showCurrencyList(List<ExchangeRate> currencyList);
+    void showLoadingDialog();
+    void dismissLoadingDialog();
 }

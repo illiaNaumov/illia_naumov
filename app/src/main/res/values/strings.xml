@@ -24,4 +24,5 @@
 
     <!-- Currency rates-->
     <string name="action_settings">Settings</string>
+    <string name="loading_message">Currencies are loading...</string>
 </resources>

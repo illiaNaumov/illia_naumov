@@ -36,11 +36,14 @@ public class CurrencyRatesPresenterImpl implements CurrencyRatesPresenter{
 
     @Override
     public void loadCurrencyData(String date) {
+        currencyView.showLoadingDialog();
+
         currencyApi.getCurrency(date).enqueue(new Callback<Privat>() {
             @Override
             public void onResponse(Call<Privat> call, Response<Privat> response) {
                 if(isViewAttached()) {
                     currencyView.showCurrencyList(response.body().getExchangeRate());
+                    currencyView.dismissLoadingDialog();
                 }
 
             }

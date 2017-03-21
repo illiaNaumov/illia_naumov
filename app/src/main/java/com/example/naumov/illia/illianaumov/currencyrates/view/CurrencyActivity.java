@@ -1,6 +1,7 @@
 package com.example.naumov.illia.illianaumov.currencyrates.view;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -46,6 +47,7 @@ public class CurrencyActivity extends AppCompatActivity implements CurrencyView,
     private Calendar dateAndTime = Calendar.getInstance();
     private List<ExchangeRate> currencyList;
     private CurrencyRatesAdapter currencyRatesAdapter;
+    private ProgressDialog progressDialog;
 
 
 
@@ -106,6 +108,20 @@ public class CurrencyActivity extends AppCompatActivity implements CurrencyView,
         this.currencyList.clear();
         this.currencyList.addAll(currencyList);
         currencyRatesAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showLoadingDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.loading_message));
+        progressDialog.show();
+    }
+
+    @Override
+    public void dismissLoadingDialog() {
+        if(progressDialog != null){
+            progressDialog.dismiss();
+        }
     }
 
     @Override
