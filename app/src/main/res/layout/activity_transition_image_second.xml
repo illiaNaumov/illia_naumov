@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".transitionimage.view.TransitionImageSecondActivity">
+    tools:context=".transitionimage.mvp.view.TransitionImageSecondActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Title">
 
             <ImageView
-                android:id="@+id/iv_second"
+                android:id="@+id/ivDetailNewsPost"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@mipmap/ic_launcher"
@@ -50,7 +50,7 @@
             android:layout_marginEnd="20dp"
             >
         <TextView
-            android:id="@+id/txt_news_post"
+            android:id="@+id/txtNews"
             android:text="Some text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
