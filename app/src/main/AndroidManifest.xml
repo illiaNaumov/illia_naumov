@@ -5,14 +5,14 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".MyApp"
+        android:name=".main.MyApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".main.MainActivity"
+            android:name=".main.mvp.view.MainActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,12 +21,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".transitionimage.view.TransitionImageSecondActivity"
-            android:parentActivityName=".transitionimage.view.TransitionImageFirstActivity" />
+            android:name=".main.mvp.view.TransitionImageSecondActivity"
+            android:parentActivityName=".main.mvp.view.TransitionImageFirstActivity" />
         <activity
-            android:name=".transitionimage.view.TransitionImageFirstActivity"
-            android:parentActivityName=".main.MainActivity" />
-        <activity android:name=".currencyrates.view.CurrencyActivity" android:parentActivityName=".main.MainActivity"/>
+            android:name=".main.mvp.view.TransitionImageFirstActivity"
+            android:parentActivityName=".main.mvp.view.MainActivity" />
+        <activity android:name=".main.mvp.view.CurrencyActivity" android:parentActivityName=".main.mvp.view.MainActivity"/>
     </application>
 
 </manifest>

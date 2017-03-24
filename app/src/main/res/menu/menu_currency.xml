@@ -2,10 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".currencyrates.view.CurrencyActivity">
+    tools:context=".main.mvp.view.CurrencyActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/btnUsd"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="USD"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/btnRub"
+        android:orderInCategory="100"
+        android:title="RUB"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/btnEur"
+        android:orderInCategory="100"
+        android:title="EUR"
         app:showAsAction="never" />
 </menu>
