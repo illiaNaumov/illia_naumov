@@ -1,7 +1,7 @@
 package com.example.naumov.illia.illianaumov.main.di.component;
 
 import com.example.naumov.illia.illianaumov.main.di.module.NewsManagerModule;
-import com.example.naumov.illia.illianaumov.main.mvp.view.TransitionImageSecondActivity;
+import com.example.naumov.illia.illianaumov.main.mvp.view.activity.TransitionImageSecondActivity;
 
 import javax.inject.Singleton;
 

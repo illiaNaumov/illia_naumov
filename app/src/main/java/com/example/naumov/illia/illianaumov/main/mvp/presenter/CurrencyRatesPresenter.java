@@ -1,6 +1,8 @@
 package com.example.naumov.illia.illianaumov.main.mvp.presenter;
 
-import com.example.naumov.illia.illianaumov.main.mvp.view.CurrencyView;
+import com.example.naumov.illia.illianaumov.main.mvp.view.activity.CurrencyView;
+
+import java.util.Date;
 
 /**
  * Created by illia_naumov.
@@ -8,6 +10,6 @@ import com.example.naumov.illia.illianaumov.main.mvp.view.CurrencyView;
 
 public interface CurrencyRatesPresenter {
     void setView(CurrencyView currencyView);
-    void loadCurrencyData(String date, String currency);
+    void loadCurrencyData(Date beginDate, Date endDate, String currency);
     void destroy();
 }

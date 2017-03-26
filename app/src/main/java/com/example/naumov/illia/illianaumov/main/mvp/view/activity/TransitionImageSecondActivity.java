@@ -1,4 +1,4 @@
-package com.example.naumov.illia.illianaumov.main.mvp.view;
+package com.example.naumov.illia.illianaumov.main.mvp.view.activity;
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;

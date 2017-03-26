@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".main.mvp.view.CurrencyActivity">
+    tools:context=".main.mvp.view.activity.CurrencyActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -41,35 +42,7 @@
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="vertical"-->
-        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="horizontal"-->
-            <!--android:gravity="center"-->
-            <!--android:paddingTop="10dp"-->
-            <!--android:paddingBottom="10dp">-->
-            <!--<EditText-->
-                <!--android:id="@+id/et_date"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="36dp"-->
-                <!--android:inputType="text"-->
-                <!--android:hint="Choose date"-->
-                <!--android:focusable="false"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:layout_marginBottom="10dp"/>-->
-            <!--<Button-->
-                <!--android:id="@+id/btn_load_currency"-->
-                <!--android:text="Load currency"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="36dp"-->
-                <!--android:layout_marginTop="10dp"-->
-                <!--android:layout_marginBottom="10dp"/>-->
-        <!--</LinearLayout>-->
+
 
         <android.support.v7.widget.RecyclerView
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -77,6 +50,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_date_range"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"/>
     <!--</LinearLayout>-->
 
 </android.support.design.widget.CoordinatorLayout>

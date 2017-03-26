@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".main.mvp.view.CurrencyActivity">
+    tools:context=".main.mvp.view.activity.CurrencyActivity">
     <item
         android:id="@+id/btnUsd"
         android:orderInCategory="100"

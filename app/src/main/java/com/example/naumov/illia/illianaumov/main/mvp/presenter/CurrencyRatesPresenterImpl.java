@@ -1,11 +1,15 @@
 package com.example.naumov.illia.illianaumov.main.mvp.presenter;
 
+import android.util.Log;
+
 import com.example.naumov.illia.illianaumov.main.MyApp;
 import com.example.naumov.illia.illianaumov.main.mvp.model.entities.ExchangeRate;
-import com.example.naumov.illia.illianaumov.main.mvp.view.CurrencyView;
+import com.example.naumov.illia.illianaumov.main.mvp.view.activity.CurrencyView;
 import com.example.naumov.illia.illianaumov.main.retrofit.CurrencyApi;
+import com.example.naumov.illia.illianaumov.main.utils.Utility;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,15 +25,22 @@ import rx.schedulers.Schedulers;
 
 public class CurrencyRatesPresenterImpl implements CurrencyRatesPresenter{
 
+    private static final String TAG = "CurrencyRatesPresenterI";
+
     private CurrencyView currencyView;
     private Subscription subscription;
 
     @Inject
     public CurrencyApi currencyApi;
 
+    private List<ExchangeRate> currencyList;
+
+
 
     public CurrencyRatesPresenterImpl() {
         MyApp.getCurrencyComponent().inject(this);
+
+        currencyList = new ArrayList<>();
     }
 
     @Override
@@ -38,20 +49,14 @@ public class CurrencyRatesPresenterImpl implements CurrencyRatesPresenter{
     }
 
     @Override
-    public void loadCurrencyData(String date, String currency) {
+    public void loadCurrencyData(Date beginDate, Date endDate, String currency) {
         currencyView.clearRates();
+        currencyList.clear();
         unsubscribe();
         currencyView.showLoadingDialog();
 
-        List<String> dates = new ArrayList<>();
-        dates.add("01.12.2015");
-        dates.add("02.12.2015");
-        dates.add("03.12.2015");
-        dates.add("04.12.2015");
-        dates.add("05.12.2015");
-        dates.add("06.12.2015");
-        dates.add("07.12.2015");
-        dates.add("08.12.2015");
+        List<String> dates = Utility.makeDateList(beginDate, endDate);
+        Log.i(TAG, "dates.size = " + dates.size());
 
         subscription = Observable.just(dates).flatMap(Observable::from)
                 .flatMap(currDate -> currencyApi.getCurrency(currDate))
@@ -60,16 +65,23 @@ public class CurrencyRatesPresenterImpl implements CurrencyRatesPresenter{
                 .observeOn(AndroidSchedulers.mainThread())
                 .filter(curr -> curr.getCurrency().equals(currency))
                 .subscribe(
-                        this::showCurrencyRate,
+                        this::addCurrencyRate,
                         System.err::println,
-                        currencyView::dismissLoadingDialog
+                        this::showCurrencies
                 );
     }
 
 
 
-    private void showCurrencyRate(ExchangeRate exchangeRate){
-        currencyView.showCurrency(exchangeRate);
+    private void addCurrencyRate(ExchangeRate exchangeRate){
+        currencyList.add(exchangeRate);
+    }
+
+    private void showCurrencies(){
+        if(isViewAttached()) {
+            currencyView.dismissLoadingDialog();
+            currencyView.showCurrencyList(currencyList);
+        }
     }
 
     private boolean isViewAttached()

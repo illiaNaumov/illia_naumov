@@ -27,4 +27,7 @@
     <string name="loading_message">Currencies are loading...</string>
     <string name="currency">currency</string>
     <string name="news">news</string>
+    <string name="date_range">Choose date ranges</string>
+    <string name="choose_start_date">Choose start date</string>
+    <string name="choose_end_date">Choose end date</string>
 </resources>

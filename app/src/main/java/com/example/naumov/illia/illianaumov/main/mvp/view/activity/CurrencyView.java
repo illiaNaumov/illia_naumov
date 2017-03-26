@@ -1,4 +1,4 @@
-package com.example.naumov.illia.illianaumov.main.mvp.view;
+package com.example.naumov.illia.illianaumov.main.mvp.view.activity;
 
 import com.example.naumov.illia.illianaumov.main.mvp.model.entities.ExchangeRate;
 
@@ -12,6 +12,5 @@ public interface CurrencyView {
     void showCurrencyList(List<ExchangeRate> currencyList);
     void showLoadingDialog();
     void dismissLoadingDialog();
-    void showCurrency(ExchangeRate exchangeRate);
     void clearRates();
 }
