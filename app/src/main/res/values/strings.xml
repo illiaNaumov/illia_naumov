@@ -37,4 +37,5 @@
     <string name="usd">USD</string>
     <string name="rub">RUB</string>
     <string name="eur">EUR</string>
+    <string name="today">Today</string>
 </resources>

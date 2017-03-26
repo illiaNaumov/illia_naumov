@@ -4,8 +4,10 @@ import android.util.Log;
 
 import com.example.naumov.illia.illianaumov.main.MyApp;
 import com.example.naumov.illia.illianaumov.main.mvp.model.entities.ExchangeRate;
+import com.example.naumov.illia.illianaumov.main.mvp.model.local.SharedPrefsManager;
 import com.example.naumov.illia.illianaumov.main.mvp.view.activity.CurrencyView;
 import com.example.naumov.illia.illianaumov.main.retrofit.CurrencyApi;
+import com.example.naumov.illia.illianaumov.main.utils.Constants;
 import com.example.naumov.illia.illianaumov.main.utils.Utility;
 
 import java.util.ArrayList;
@@ -32,6 +34,8 @@ public class CurrencyRatesPresenterImpl implements CurrencyRatesPresenter{
 
     @Inject
     public CurrencyApi currencyApi;
+    @Inject
+    public SharedPrefsManager sharedPrefsManager;
 
     private List<ExchangeRate> currencyList;
 
@@ -49,14 +53,16 @@ public class CurrencyRatesPresenterImpl implements CurrencyRatesPresenter{
     }
 
     @Override
-    public void loadCurrencyData(Date beginDate, Date endDate, String currency) {
+    public void loadCurrencyData() {
         currencyView.clearRates();
         currencyList.clear();
         unsubscribe();
         currencyView.showLoadingDialog();
 
-        List<String> dates = Utility.makeDateList(beginDate, endDate);
-        Log.i(TAG, "dates.size = " + dates.size());
+        String beginDateStr = sharedPrefsManager.getString(Constants.SharedPrefs.BEGIN_DATE_KEY, Utility.formatDate(new Date()));
+        String endDateStr = sharedPrefsManager.getString(Constants.SharedPrefs.END_DATE_KEY, Utility.formatDate(new Date()));
+        List<String> dates = Utility.makeDateList(Utility.parseDate(beginDateStr), Utility.parseDate(endDateStr));
+        String currency = sharedPrefsManager.getString(Constants.SharedPrefs.CURRENCY_KEY, Constants.Currency.USD);
 
         subscription = Observable.just(dates).flatMap(Observable::from)
                 .flatMap(currDate -> currencyApi.getCurrency(currDate))
@@ -93,6 +99,11 @@ public class CurrencyRatesPresenterImpl implements CurrencyRatesPresenter{
         if(subscription != null) {
             subscription.unsubscribe();
         }
+    }
+
+    @Override
+    public void saveCurrencySelection(String currency){
+        sharedPrefsManager.setString(Constants.SharedPrefs.CURRENCY_KEY, currency);
     }
 
     @Override

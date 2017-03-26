@@ -11,14 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.naumov.illia.illianaumov.R;
-import com.example.naumov.illia.illianaumov.main.mvp.model.entities.NewsPost;
+import com.example.naumov.illia.illianaumov.main.mvp.model.entities.Article;
+import com.example.naumov.illia.illianaumov.main.utils.Utility;
 import com.squareup.picasso.Picasso;
 
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,24 +24,24 @@ import butterknife.ButterKnife;
  * Created by illia_naumov.
  */
 
-public class TestStringAdapter extends RecyclerView.Adapter <RecyclerView.ViewHolder> {
+public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int HEADER_TYPE = 0;
     private static final int LIST_ITEM_TYPE = 1;
 
     private Context mContext;
-    private List<NewsPost> newsPostList;
+    private List<Article> newsPostList;
     private LayoutInflater layoutInflater;
 
     private int lastPosition;
 
-    public TestStringAdapter(Context context) {
+    public NewsAdapter(Context context) {
         this.mContext = context;
 
         layoutInflater = LayoutInflater.from(mContext);
     }
 
-    public void setNewsPostList(List<NewsPost> newsPostList) {
+    public void setNewsPostList(List<Article> newsPostList) {
         this.newsPostList = newsPostList;
     }
 
@@ -52,7 +49,7 @@ public class TestStringAdapter extends RecyclerView.Adapter <RecyclerView.ViewHo
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v;
 
-        switch(viewType){
+        switch (viewType) {
             case HEADER_TYPE:
                 v = layoutInflater.inflate(R.layout.recycler_view_header, parent, false);
                 return new TestStringViewHeaderHolder(v);
@@ -67,11 +64,11 @@ public class TestStringAdapter extends RecyclerView.Adapter <RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        if(holder instanceof TestStringViewHeaderHolder){
+        if (holder instanceof TestStringViewHeaderHolder) {
 
             ((TestStringViewHeaderHolder) holder).onBind(newsPostList.get(position));
 
-        }else if(holder instanceof TestStringViewHolder){
+        } else if (holder instanceof TestStringViewHolder) {
 
             ((TestStringViewHolder) holder).onBind(newsPostList.get(position));
 
@@ -79,7 +76,6 @@ public class TestStringAdapter extends RecyclerView.Adapter <RecyclerView.ViewHo
 
         addAnimation(holder, position);
     }
-
 
 
     @Override
@@ -95,7 +91,7 @@ public class TestStringAdapter extends RecyclerView.Adapter <RecyclerView.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-        switch(position){
+        switch (position) {
             case 0:
                 return HEADER_TYPE;
             default:
@@ -103,7 +99,7 @@ public class TestStringAdapter extends RecyclerView.Adapter <RecyclerView.ViewHo
         }
     }
 
-    private void addAnimation(RecyclerView.ViewHolder viewHolder, int position){
+    private void addAnimation(RecyclerView.ViewHolder viewHolder, int position) {
         Animation animation = AnimationUtils.loadAnimation(mContext,
                 (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
 
@@ -112,25 +108,31 @@ public class TestStringAdapter extends RecyclerView.Adapter <RecyclerView.ViewHo
         lastPosition = position;
     }
 
-    static class TestStringViewHeaderHolder extends RecyclerView.ViewHolder{
+    static class TestStringViewHeaderHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.image_view)
         ImageView ivTest;
+        @BindView(R.id.tvNewsTitle)
+        TextView tvNewsTitle;
 
         TestStringViewHeaderHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        void onBind(final NewsPost newsPost){
+        void onBind(final Article article) {
             Picasso.with(ivTest.getContext())
-                    .load(newsPost.getImageUrl()).into(ivTest);
+                    .load(article.getUrlToImage()).into(ivTest);
+
+            tvNewsTitle.setText(article.getTitle());
         }
     }
 
-    static class TestStringViewHolder extends RecyclerView.ViewHolder{
+    static class TestStringViewHolder extends RecyclerView.ViewHolder {
         View itemView;
         @BindView(R.id.image_view)
         ImageView ivTest;
+        @BindView(R.id.tvNewsTitle)
+        TextView tvNewsTitle;
         @BindView(R.id.date)
         TextView tvDate;
 
@@ -140,11 +142,13 @@ public class TestStringAdapter extends RecyclerView.Adapter <RecyclerView.ViewHo
             ButterKnife.bind(this, itemView);
         }
 
-        void onBind(final NewsPost newsPost){
+        void onBind(final Article article) {
             Picasso.with(ivTest.getContext())
-                    .load(newsPost.getImageUrl()).into(ivTest);
+                    .load(article.getUrlToImage()).into(ivTest);
 
-            tvDate.setText(new SimpleDateFormat("dd.MM.yyyy", Locale.US).format(Calendar.getInstance().getTime()));
+            tvNewsTitle.setText(article.getTitle());
+
+            tvDate.setText(Utility.formatFromNewsDate(article.getPublishedAt()));
 
         }
     }

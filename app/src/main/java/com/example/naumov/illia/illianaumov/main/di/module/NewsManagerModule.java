@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.example.naumov.illia.illianaumov.main.MyApp;
 import com.example.naumov.illia.illianaumov.R;
+import com.example.naumov.illia.illianaumov.main.mvp.presenter.INewsPresenter;
+import com.example.naumov.illia.illianaumov.main.mvp.presenter.NewsPresenterImpl;
 
 import javax.inject.Singleton;
 
@@ -31,5 +33,11 @@ public class NewsManagerModule {
     @Provides @Singleton
     Context provideAppContext(){
         return context;
+    }
+
+    @Provides
+    @Singleton
+    INewsPresenter provideNewsPresenter(){
+        return new NewsPresenterImpl();
     }
 }

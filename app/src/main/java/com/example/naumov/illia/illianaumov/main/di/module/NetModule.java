@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.example.naumov.illia.illianaumov.main.retrofit.CurrencyApi;
+import com.example.naumov.illia.illianaumov.main.retrofit.NewsApi;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -70,5 +71,11 @@ public class NetModule {
     @Singleton
     CurrencyApi provideCurrencyApi(Retrofit retrofit){
         return retrofit.create(CurrencyApi.class);
+    }
+
+    @Provides
+    @Singleton
+    NewsApi provideNewsApi(Retrofit retrofit){
+        return retrofit.create(NewsApi.class);
     }
 }

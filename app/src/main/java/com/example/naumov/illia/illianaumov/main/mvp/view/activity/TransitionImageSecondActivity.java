@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.naumov.illia.illianaumov.main.MyApp;
 import com.example.naumov.illia.illianaumov.R;
+import com.example.naumov.illia.illianaumov.main.mvp.model.entities.Article;
 import com.example.naumov.illia.illianaumov.main.mvp.model.entities.NewsPost;
 import com.squareup.picasso.Picasso;
 
@@ -28,8 +29,6 @@ public class TransitionImageSecondActivity extends AppCompatActivity {
     @BindView(R.id.txt_news_post)
     TextView txtNewsPost;
 
-    @Inject
-    String newsPostText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +46,10 @@ public class TransitionImageSecondActivity extends AppCompatActivity {
             ivSecond.setTransitionName("transitionName");
         }
 
-        NewsPost newsPost = getIntent().getParcelableExtra("news_post");
-        Picasso.with(this).load(newsPost.getImageUrl()).into(ivSecond);
+        Article article = getIntent().getParcelableExtra("news_post");
+        Picasso.with(this).load(article.getUrlToImage()).into(ivSecond);
 
-        txtNewsPost.setText(newsPostText);
+        txtNewsPost.setText(article.getDescription());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

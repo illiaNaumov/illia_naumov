@@ -10,6 +10,8 @@ import java.util.Date;
 
 public interface CurrencyRatesPresenter {
     void setView(CurrencyView currencyView);
-    void loadCurrencyData(Date beginDate, Date endDate, String currency);
+    void loadCurrencyData();
+    void saveCurrencySelection(String currency);
+
     void destroy();
 }

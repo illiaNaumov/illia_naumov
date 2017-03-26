@@ -1,5 +1,9 @@
 package com.example.naumov.illia.illianaumov.main.di.module;
 
+import android.content.Context;
+
+import com.example.naumov.illia.illianaumov.main.MyApp;
+import com.example.naumov.illia.illianaumov.main.mvp.model.local.SharedPrefsManager;
 import com.example.naumov.illia.illianaumov.main.mvp.presenter.CurrencyRatesPresenter;
 import com.example.naumov.illia.illianaumov.main.mvp.presenter.CurrencyRatesPresenterImpl;
 
@@ -15,11 +19,19 @@ import dagger.Provides;
 @Module
 public class CurrencyModule {
 
-    public CurrencyModule() {
+    private Context mContext;
+
+    public CurrencyModule(MyApp myApp) {
+        mContext = myApp.getBaseContext();
     }
 
     @Provides @Singleton
     CurrencyRatesPresenter provideCurrencyRatesPresenter(){
         return new CurrencyRatesPresenterImpl();
+    }
+
+    @Provides @Singleton
+    SharedPrefsManager provideSharedPrefsManager(){
+        return new SharedPrefsManager(mContext);
     }
 }

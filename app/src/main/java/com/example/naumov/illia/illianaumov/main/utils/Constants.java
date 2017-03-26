@@ -18,4 +18,15 @@ public class Constants {
         public static final String DATE_PATTERN = "dd.MM.yyyy";
     }
 
+    public static class News{
+        public static final String NEWS_BASE_URL = "https://newsapi.org/";
+        public static final String NEWS_DATE_PATTERN = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
+    }
+
+    public static class SharedPrefs{
+        public static final String CURRENCY_KEY = "currency";
+        public static final String BEGIN_DATE_KEY = "beginDate";
+        public static final String END_DATE_KEY = "endDate";
+    }
+
 }

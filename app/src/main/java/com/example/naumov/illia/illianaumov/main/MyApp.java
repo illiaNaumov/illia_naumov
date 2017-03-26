@@ -38,7 +38,7 @@ public class MyApp extends Application {
 
     private CurrencyComponent buildCurrencyComponent() {
         return DaggerCurrencyComponent.builder()
-                .currencyModule(new CurrencyModule())
+                .currencyModule(new CurrencyModule(this))
                 .netModule(new NetModule(Constants.Currency.CURRENCY_PB_DOMAIN))
                 .build();
     }
@@ -46,6 +46,7 @@ public class MyApp extends Application {
     protected NewsManagerComponent buildComponent() {
         return DaggerNewsManagerComponent.builder()
                 .newsManagerModule(new NewsManagerModule(this))
+                .netModule(new NetModule(Constants.News.NEWS_BASE_URL))
                 .build();
     }
 

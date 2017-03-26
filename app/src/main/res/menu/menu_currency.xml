@@ -27,14 +27,14 @@
     <item android:title="@string/time_period">
         <menu>
             <item
+                android:id="@+id/btnToday"
+                android:title="@string/today" />
+            <item
                 android:id="@+id/btnLastWeek"
                 android:title="@string/last_week" />
             <item
                 android:id="@+id/btnLastMonth"
                 android:title="@string/last_month" />
-            <item
-                android:id="@+id/btnLastYear"
-                android:title="@string/last_year" />
         </menu>
     </item>
 

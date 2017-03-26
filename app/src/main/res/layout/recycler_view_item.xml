@@ -13,14 +13,14 @@
         <ImageView
             android:id="@+id/image_view"
             android:layout_marginEnd="8dp"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher"
             android:layout_centerVertical="true"/>
 
         <TextView
-            android:id="@+id/recycler_text"
+            android:id="@+id/tvNewsTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Edite, bibite, post mortem nulla voluptas!"

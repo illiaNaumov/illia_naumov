@@ -13,8 +13,10 @@ import android.widget.EditText;
 
 import com.example.naumov.illia.illianaumov.R;
 import com.example.naumov.illia.illianaumov.main.MyApp;
+import com.example.naumov.illia.illianaumov.main.mvp.model.local.SharedPrefsManager;
 import com.example.naumov.illia.illianaumov.main.mvp.presenter.CurrencyRatesPresenter;
-import com.example.naumov.illia.illianaumov.main.mvp.presenter.CurrencyRatesPresenterImpl;
+import com.example.naumov.illia.illianaumov.main.utils.Constants;
+import com.example.naumov.illia.illianaumov.main.utils.Utility;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -38,6 +40,8 @@ public class DateDialogFragment extends DialogFragment implements DatePickerDial
 
     @Inject
     CurrencyRatesPresenter currencyRatesPresenter;
+    @Inject
+    SharedPrefsManager sharedPrefsManager;
 
     @BindView(R.id.etBeginDate)
     EditText etBeginDate;
@@ -64,12 +68,16 @@ public class DateDialogFragment extends DialogFragment implements DatePickerDial
 
         ButterKnife.bind(this, view);
 
+        setDates();
+
         return new AlertDialog.Builder(getActivity())
                 .setTitle("Choose date range")
                 .setView(view)
                 .setPositiveButton("OK",
                         (dialog, whichButton) -> {
-                            currencyRatesPresenter.loadCurrencyData(beginDate, endDate, "USD");
+                            sharedPrefsManager.setString(Constants.SharedPrefs.BEGIN_DATE_KEY, Utility.formatDate(beginDate));
+                            sharedPrefsManager.setString(Constants.SharedPrefs.END_DATE_KEY, Utility.formatDate(endDate));
+                            currencyRatesPresenter.loadCurrencyData();
                         }
                 )
                 .setNegativeButton("Cancel",
@@ -77,6 +85,14 @@ public class DateDialogFragment extends DialogFragment implements DatePickerDial
                         }
                 )
                 .create();
+    }
+
+    private void setDates() {
+        etBeginDate.setText(sharedPrefsManager.getString(Constants.SharedPrefs.BEGIN_DATE_KEY,
+                Utility.formatDate(Calendar.getInstance().getTime())));
+
+        etEndDate.setText(sharedPrefsManager.getString(Constants.SharedPrefs.END_DATE_KEY,
+                Utility.formatDate(Calendar.getInstance().getTime())));
     }
 
 

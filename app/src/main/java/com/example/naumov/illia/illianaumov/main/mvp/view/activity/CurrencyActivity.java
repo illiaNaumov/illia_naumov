@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.DatePicker;
@@ -14,10 +15,12 @@ import android.widget.DatePicker;
 import com.example.naumov.illia.illianaumov.main.MyApp;
 import com.example.naumov.illia.illianaumov.R;
 import com.example.naumov.illia.illianaumov.main.mvp.model.entities.ExchangeRate;
+import com.example.naumov.illia.illianaumov.main.mvp.model.local.SharedPrefsManager;
 import com.example.naumov.illia.illianaumov.main.mvp.presenter.CurrencyRatesPresenter;
 import com.example.naumov.illia.illianaumov.main.mvp.view.adapter.CurrencyRatesAdapter;
 import com.example.naumov.illia.illianaumov.main.mvp.view.fragment.DateDialogFragment;
 import com.example.naumov.illia.illianaumov.main.utils.Constants;
+import com.example.naumov.illia.illianaumov.main.utils.Utility;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -41,6 +44,8 @@ public class CurrencyActivity extends AppCompatActivity implements CurrencyView 
 
     @Inject
     public CurrencyRatesPresenter currencyRatesPresenter;
+    @Inject
+    public SharedPrefsManager sharedPrefsManager;
 
 
 
@@ -72,6 +77,7 @@ public class CurrencyActivity extends AppCompatActivity implements CurrencyView 
         rvCurrencyRates.setAdapter(currencyRatesAdapter);
         rvCurrencyRates.setLayoutManager(new LinearLayoutManager(this));
 
+        currencyRatesPresenter.loadCurrencyData();
     }
 
     @Override
@@ -82,17 +88,33 @@ public class CurrencyActivity extends AppCompatActivity implements CurrencyView 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Date currDate = Calendar.getInstance().getTime();
-
         switch (item.getItemId()){
             case R.id.btnUsd:
-                currencyRatesPresenter.loadCurrencyData(currDate, currDate, Constants.Currency.USD);
+                currencyRatesPresenter.saveCurrencySelection(Constants.Currency.USD);
+                currencyRatesPresenter.loadCurrencyData();
                 return true;
             case R.id.btnRub:
-                currencyRatesPresenter.loadCurrencyData(currDate, currDate, Constants.Currency.RUB);
+                currencyRatesPresenter.saveCurrencySelection(Constants.Currency.RUB);
+                currencyRatesPresenter.loadCurrencyData();
                 return true;
             case R.id.btnEur:
-                currencyRatesPresenter.loadCurrencyData(currDate, currDate, Constants.Currency.EUR);
+                currencyRatesPresenter.saveCurrencySelection(Constants.Currency.EUR);
+                currencyRatesPresenter.loadCurrencyData();
+                return true;
+            case R.id.btnToday:
+                sharedPrefsManager.setString(Constants.SharedPrefs.BEGIN_DATE_KEY,  Utility.formatDate(Calendar.getInstance().getTime()));
+                sharedPrefsManager.setString(Constants.SharedPrefs.END_DATE_KEY, Utility.formatDate(Calendar.getInstance().getTime()));
+                currencyRatesPresenter.loadCurrencyData();
+                return true;
+            case R.id.btnLastWeek:
+                sharedPrefsManager.setString(Constants.SharedPrefs.BEGIN_DATE_KEY, Utility.formatDate(Utility.getWeekEarlierDate(new Date())));
+                sharedPrefsManager.setString(Constants.SharedPrefs.END_DATE_KEY, Utility.formatDate(Calendar.getInstance().getTime()));
+                currencyRatesPresenter.loadCurrencyData();
+                return true;
+            case R.id.btnLastMonth:
+                sharedPrefsManager.setString(Constants.SharedPrefs.BEGIN_DATE_KEY,  Utility.formatDate(Utility.getMonthEarlierDate(new Date())));
+                sharedPrefsManager.setString(Constants.SharedPrefs.END_DATE_KEY, Utility.formatDate(Calendar.getInstance().getTime()));
+                currencyRatesPresenter.loadCurrencyData();
                 return true;
         }
 
@@ -137,6 +159,5 @@ public class CurrencyActivity extends AppCompatActivity implements CurrencyView 
 
         currencyRatesPresenter.destroy();
     }
-
 
 }

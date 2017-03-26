@@ -1,5 +1,6 @@
 package com.example.naumov.illia.illianaumov.main.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,6 +14,7 @@ import java.util.Locale;
 
 public class Utility {
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(Constants.Currency.DATE_PATTERN, Locale.US);
+    private static SimpleDateFormat newsSimpleDateFormat = new SimpleDateFormat(Constants.News.NEWS_DATE_PATTERN, Locale.US);
 
     public static List<String> makeDateList(Date beginDate, Date endDate){
         List<String> dateList = new ArrayList<>();
@@ -27,5 +29,54 @@ public class Utility {
         }
 
         return dateList;
+    }
+
+    public static String formatDate(Date date){
+        return simpleDateFormat.format(date);
+    }
+
+    public static Date parseDate(String stringDate){
+        try {
+            return simpleDateFormat.parse(stringDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String formatFromNewsDate(String newsDate){
+        try {
+            Date date = newsSimpleDateFormat.parse(newsDate);
+            return simpleDateFormat.format(date);
+        } catch (ParseException e) {
+                return newsDate.substring(0, 10).replace('-', '.');
+        }
+    }
+
+    public static Date getWeekEarlierDate(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.roll(Calendar.WEEK_OF_YEAR, -1);
+
+        return calendar.getTime();
+
+    }
+
+
+    public static Date getMonthEarlierDate(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.roll(Calendar.MONTH, -1);
+
+        return calendar.getTime();
+    }
+
+    public static Date getYearEarlierDate(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.roll(Calendar.YEAR, -1);
+
+        return calendar.getTime();
+
     }
 }
