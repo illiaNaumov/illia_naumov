@@ -3,19 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".main.mvp.view.activity.CurrencyActivity">
-    <item
-        android:id="@+id/btnUsd"
-        android:orderInCategory="100"
-        android:title="USD"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/btnRub"
-        android:orderInCategory="100"
-        android:title="RUB"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/btnEur"
-        android:orderInCategory="100"
-        android:title="EUR"
-        app:showAsAction="never" />
+
+    <item android:title="@string/currency">
+        <menu>
+            <item
+                android:id="@+id/btnUsd"
+                android:orderInCategory="100"
+                android:title="@string/usd"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/btnRub"
+                android:orderInCategory="100"
+                android:title="@string/rub"
+                app:showAsAction="never" />
+            <item
+                android:id="@+id/btnEur"
+                android:orderInCategory="100"
+                android:title="@string/eur"
+                app:showAsAction="never" />
+        </menu>
+    </item>
+
+    <item android:title="@string/time_period">
+        <menu>
+            <item
+                android:id="@+id/btnLastWeek"
+                android:title="@string/last_week" />
+            <item
+                android:id="@+id/btnLastMonth"
+                android:title="@string/last_month" />
+            <item
+                android:id="@+id/btnLastYear"
+                android:title="@string/last_year" />
+        </menu>
+    </item>
+
 </menu>
