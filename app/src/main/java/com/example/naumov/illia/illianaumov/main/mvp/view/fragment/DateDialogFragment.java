@@ -14,7 +14,7 @@ import android.widget.EditText;
 import com.example.naumov.illia.illianaumov.R;
 import com.example.naumov.illia.illianaumov.main.MyApp;
 import com.example.naumov.illia.illianaumov.main.mvp.model.local.SharedPrefsManager;
-import com.example.naumov.illia.illianaumov.main.mvp.presenter.CurrencyRatesPresenter;
+import com.example.naumov.illia.illianaumov.main.mvp.presenter.ICurrencyRatesPresenter;
 import com.example.naumov.illia.illianaumov.main.utils.Constants;
 import com.example.naumov.illia.illianaumov.main.utils.Utility;
 
@@ -39,7 +39,7 @@ public class DateDialogFragment extends DialogFragment implements DatePickerDial
     private static final int END_DATE_CHOSEN = 2;
 
     @Inject
-    CurrencyRatesPresenter currencyRatesPresenter;
+    ICurrencyRatesPresenter currencyRatesPresenter;
     @Inject
     SharedPrefsManager sharedPrefsManager;
 

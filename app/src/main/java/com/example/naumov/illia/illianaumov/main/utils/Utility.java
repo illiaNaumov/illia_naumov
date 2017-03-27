@@ -71,12 +71,15 @@ public class Utility {
         return calendar.getTime();
     }
 
-    public static Date getYearEarlierDate(Date date){
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.roll(Calendar.YEAR, -1);
+    public static List<String> getNewsSourcesList(){
+        List<String> sources = new ArrayList<>();
 
-        return calendar.getTime();
+        sources.add("bloomberg");
+        sources.add("business-insider");
+        sources.add("cnbc");
 
+        return sources;
     }
+
+
 }

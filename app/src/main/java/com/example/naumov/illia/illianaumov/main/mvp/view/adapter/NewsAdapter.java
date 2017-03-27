@@ -121,7 +121,8 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         void onBind(final Article article) {
             Picasso.with(ivTest.getContext())
-                    .load(article.getUrlToImage()).into(ivTest);
+                    .load(article.getUrlToImage())
+                    .into(ivTest);
 
             tvNewsTitle.setText(article.getTitle());
         }
@@ -144,7 +145,8 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         void onBind(final Article article) {
             Picasso.with(ivTest.getContext())
-                    .load(article.getUrlToImage()).into(ivTest);
+                    .load(article.getUrlToImage())
+                    .into(ivTest);
 
             tvNewsTitle.setText(article.getTitle());
 

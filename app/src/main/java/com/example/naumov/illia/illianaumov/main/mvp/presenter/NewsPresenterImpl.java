@@ -1,14 +1,15 @@
 package com.example.naumov.illia.illianaumov.main.mvp.presenter;
 
-import android.util.Log;
-
+import com.example.naumov.illia.illianaumov.BuildConfig;
 import com.example.naumov.illia.illianaumov.main.MyApp;
 import com.example.naumov.illia.illianaumov.main.mvp.model.entities.News;
 import com.example.naumov.illia.illianaumov.main.mvp.view.activity.INewsView;
 import com.example.naumov.illia.illianaumov.main.retrofit.NewsApi;
+import com.example.naumov.illia.illianaumov.main.utils.Utility;
 
 import javax.inject.Inject;
 
+import rx.Observable;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -37,7 +38,9 @@ public class NewsPresenterImpl implements INewsPresenter {
 
     @Override
     public void loadNews() {
-        subscription = newsApi.getNews("bloomberg", "b55c2696462747d0bf61e156f5b60531")
+        subscription = Observable.just(Utility.getNewsSourcesList())
+                .flatMap(Observable::from)
+                .flatMap(s -> newsApi.getNews(s, BuildConfig.NEWS_API_KEY))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -45,9 +48,8 @@ public class NewsPresenterImpl implements INewsPresenter {
                         System.out::println);
     }
 
-    private void showNews(News news){
-        Log.i("ARTICLES", "size =" + news.getArticles().size());
-        if(newsView != null) {
+    private void showNews(News news) {
+        if (newsView != null) {
             newsView.showNews(news.getArticles());
         }
     }

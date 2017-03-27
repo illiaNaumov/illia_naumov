@@ -1,22 +1,19 @@
 package com.example.naumov.illia.illianaumov.main.mvp.view.activity;
 
-import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.DatePicker;
 
 import com.example.naumov.illia.illianaumov.main.MyApp;
 import com.example.naumov.illia.illianaumov.R;
 import com.example.naumov.illia.illianaumov.main.mvp.model.entities.ExchangeRate;
 import com.example.naumov.illia.illianaumov.main.mvp.model.local.SharedPrefsManager;
-import com.example.naumov.illia.illianaumov.main.mvp.presenter.CurrencyRatesPresenter;
+import com.example.naumov.illia.illianaumov.main.mvp.presenter.ICurrencyRatesPresenter;
 import com.example.naumov.illia.illianaumov.main.mvp.view.adapter.CurrencyRatesAdapter;
 import com.example.naumov.illia.illianaumov.main.mvp.view.fragment.DateDialogFragment;
 import com.example.naumov.illia.illianaumov.main.utils.Constants;
@@ -43,7 +40,7 @@ public class CurrencyActivity extends AppCompatActivity implements CurrencyView 
 //    EditText etDate;
 
     @Inject
-    public CurrencyRatesPresenter currencyRatesPresenter;
+    public ICurrencyRatesPresenter currencyRatesPresenter;
     @Inject
     public SharedPrefsManager sharedPrefsManager;
 

@@ -24,6 +24,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildTypes.each {
+        it.buildConfigField 'String', 'NEWS_API_KEY', '\"b55c2696462747d0bf61e156f5b60531\"'
+    }
 }
 
 ext {

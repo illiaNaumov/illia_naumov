@@ -1,7 +1,5 @@
 package com.example.naumov.illia.illianaumov.main.mvp.presenter;
 
-import android.util.Log;
-
 import com.example.naumov.illia.illianaumov.main.MyApp;
 import com.example.naumov.illia.illianaumov.main.mvp.model.entities.ExchangeRate;
 import com.example.naumov.illia.illianaumov.main.mvp.model.local.SharedPrefsManager;
@@ -25,9 +23,7 @@ import rx.schedulers.Schedulers;
  * Created by illia_naumov.
  */
 
-public class CurrencyRatesPresenterImpl implements CurrencyRatesPresenter{
-
-    private static final String TAG = "CurrencyRatesPresenterI";
+public class CurrencyRatesPresenterImpl implements ICurrencyRatesPresenter {
 
     private CurrencyView currencyView;
     private Subscription subscription;
@@ -38,7 +34,6 @@ public class CurrencyRatesPresenterImpl implements CurrencyRatesPresenter{
     public SharedPrefsManager sharedPrefsManager;
 
     private List<ExchangeRate> currencyList;
-
 
 
     public CurrencyRatesPresenterImpl() {
@@ -78,31 +73,29 @@ public class CurrencyRatesPresenterImpl implements CurrencyRatesPresenter{
     }
 
 
-
-    private void addCurrencyRate(ExchangeRate exchangeRate){
+    private void addCurrencyRate(ExchangeRate exchangeRate) {
         currencyList.add(exchangeRate);
     }
 
-    private void showCurrencies(){
-        if(isViewAttached()) {
+    private void showCurrencies() {
+        if (isViewAttached()) {
             currencyView.dismissLoadingDialog();
             currencyView.showCurrencyList(currencyList);
         }
     }
 
-    private boolean isViewAttached()
-    {
+    private boolean isViewAttached() {
         return currencyView != null;
     }
 
-    private void unsubscribe(){
-        if(subscription != null) {
+    private void unsubscribe() {
+        if (subscription != null) {
             subscription.unsubscribe();
         }
     }
 
     @Override
-    public void saveCurrencySelection(String currency){
+    public void saveCurrencySelection(String currency) {
         sharedPrefsManager.setString(Constants.SharedPrefs.CURRENCY_KEY, currency);
     }
 

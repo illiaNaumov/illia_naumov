@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.example.naumov.illia.illianaumov.main.MyApp;
 import com.example.naumov.illia.illianaumov.main.mvp.model.local.SharedPrefsManager;
-import com.example.naumov.illia.illianaumov.main.mvp.presenter.CurrencyRatesPresenter;
+import com.example.naumov.illia.illianaumov.main.mvp.presenter.ICurrencyRatesPresenter;
 import com.example.naumov.illia.illianaumov.main.mvp.presenter.CurrencyRatesPresenterImpl;
 
 import javax.inject.Singleton;
@@ -26,7 +26,7 @@ public class CurrencyModule {
     }
 
     @Provides @Singleton
-    CurrencyRatesPresenter provideCurrencyRatesPresenter(){
+    ICurrencyRatesPresenter provideCurrencyRatesPresenter(){
         return new CurrencyRatesPresenterImpl();
     }
 

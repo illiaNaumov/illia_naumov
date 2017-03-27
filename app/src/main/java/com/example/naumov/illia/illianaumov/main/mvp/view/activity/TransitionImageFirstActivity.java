@@ -78,9 +78,10 @@ public class TransitionImageFirstActivity extends AppCompatActivity implements I
 
     @Override
     public void showNews(List<Article> news) {
-        newsPostList.clear();
+        int lastBeforeInsert = newsPostList.size();
+
         newsPostList.addAll(news);
 
-        newsAdapter.notifyDataSetChanged();
+        newsAdapter.notifyItemRangeInserted(lastBeforeInsert, news.size());
     }
 }

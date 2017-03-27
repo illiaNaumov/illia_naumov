@@ -8,7 +8,7 @@ import java.util.Date;
  * Created by illia_naumov.
  */
 
-public interface CurrencyRatesPresenter {
+public interface ICurrencyRatesPresenter {
     void setView(CurrencyView currencyView);
     void loadCurrencyData();
     void saveCurrencySelection(String currency);
