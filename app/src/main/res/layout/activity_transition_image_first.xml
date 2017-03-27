@@ -13,7 +13,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
         <include layout="@layout/app_bar_simple"/>
 
         <android.support.v7.widget.RecyclerView
@@ -24,13 +23,5 @@
             android:scrollbars="none"
             />
     </LinearLayout>
-
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nvView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@android:color/white" />
-
 
 </android.support.v4.widget.DrawerLayout>

@@ -19,6 +19,5 @@ import dagger.Component;
 @Singleton
 public interface NewsManagerComponent {
     void inject(TransitionImageFirstActivity transitionImageFirstActivity);
-    void inject(TransitionImageSecondActivity transitionImageSecondActivity);
     void inject(NewsPresenterImpl newsPresenter);
 }

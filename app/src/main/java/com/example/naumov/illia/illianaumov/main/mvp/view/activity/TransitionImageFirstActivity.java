@@ -37,7 +37,6 @@ public class TransitionImageFirstActivity extends AppCompatActivity implements I
     private NewsAdapter newsAdapter;
     private List<Article> newsPostList;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

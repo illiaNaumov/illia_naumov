@@ -9,13 +9,9 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.naumov.illia.illianaumov.main.MyApp;
 import com.example.naumov.illia.illianaumov.R;
 import com.example.naumov.illia.illianaumov.main.mvp.model.entities.Article;
-import com.example.naumov.illia.illianaumov.main.mvp.model.entities.NewsPost;
 import com.squareup.picasso.Picasso;
-
-import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,15 +25,12 @@ public class TransitionImageSecondActivity extends AppCompatActivity {
     @BindView(R.id.txt_news_post)
     TextView txtNewsPost;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transition_image_second);
 
         ButterKnife.bind(this);
-
-        MyApp.getNewsManagerComponent().inject(this);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -45,7 +45,7 @@ public class MyApp extends Application {
 
     protected NewsManagerComponent buildComponent() {
         return DaggerNewsManagerComponent.builder()
-                .newsManagerModule(new NewsManagerModule(this))
+                .newsManagerModule(new NewsManagerModule())
                 .netModule(new NetModule(Constants.News.NEWS_BASE_URL))
                 .build();
     }
