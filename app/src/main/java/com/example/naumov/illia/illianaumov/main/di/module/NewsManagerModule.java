@@ -1,5 +1,7 @@
 package com.example.naumov.illia.illianaumov.main.di.module;
 
+import com.example.naumov.illia.illianaumov.main.mvp.interactor.INewsInteractor;
+import com.example.naumov.illia.illianaumov.main.mvp.interactor.NewsInteractorImpl;
 import com.example.naumov.illia.illianaumov.main.mvp.presenter.INewsPresenter;
 import com.example.naumov.illia.illianaumov.main.mvp.presenter.NewsPresenterImpl;
 
@@ -23,5 +25,11 @@ public class NewsManagerModule {
     @Singleton
     INewsPresenter provideNewsPresenter(){
         return new NewsPresenterImpl();
+    }
+
+    @Provides
+    @Singleton
+    INewsInteractor provideNewsInteractor(){
+        return new NewsInteractorImpl();
     }
 }

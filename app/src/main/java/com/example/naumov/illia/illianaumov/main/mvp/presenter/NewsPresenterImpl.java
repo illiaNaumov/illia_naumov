@@ -2,6 +2,7 @@ package com.example.naumov.illia.illianaumov.main.mvp.presenter;
 
 import com.example.naumov.illia.illianaumov.BuildConfig;
 import com.example.naumov.illia.illianaumov.main.MyApp;
+import com.example.naumov.illia.illianaumov.main.mvp.interactor.INewsInteractor;
 import com.example.naumov.illia.illianaumov.main.mvp.model.entities.News;
 import com.example.naumov.illia.illianaumov.main.mvp.view.activity.INewsView;
 import com.example.naumov.illia.illianaumov.main.retrofit.NewsApi;
@@ -22,7 +23,7 @@ public class NewsPresenterImpl implements INewsPresenter {
 
 
     @Inject
-    public NewsApi newsApi;
+    public INewsInteractor newsInteractor;
 
     private INewsView newsView;
     private Subscription subscription;
@@ -38,9 +39,7 @@ public class NewsPresenterImpl implements INewsPresenter {
 
     @Override
     public void loadNews() {
-        subscription = Observable.just(Utility.getNewsSourcesList())
-                .flatMap(Observable::from)
-                .flatMap(s -> newsApi.getNews(s, BuildConfig.NEWS_API_KEY))
+        subscription = newsInteractor.getNews()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
