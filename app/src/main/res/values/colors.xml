@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#4CAF50</color> <!--500-->
-    <color name="colorPrimaryDark">#2E7D32</color><!--800-->
-    <color name="colorAccent">#FF5722</color> <!--500-->
+    <color name="colorPrimary">@color/green500</color>
+    <color name="colorPrimaryDark">@color/green800</color>
+    <color name="colorAccent">#FF5722</color>
 
     <color name="white">#FFFFFF</color>
+
+    <!-- Green palette -->
+    <color name="green500">#4CAF50</color>
+    <color name="green800">#2E7D32</color>
+    <color name="green900">#1B5E20</color>
 </resources>

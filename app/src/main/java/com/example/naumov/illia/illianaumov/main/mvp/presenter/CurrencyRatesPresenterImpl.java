@@ -1,6 +1,7 @@
 package com.example.naumov.illia.illianaumov.main.mvp.presenter;
 
 import com.example.naumov.illia.illianaumov.main.MyApp;
+import com.example.naumov.illia.illianaumov.main.mvp.interactor.ICurrencyRatesInteractor;
 import com.example.naumov.illia.illianaumov.main.mvp.model.entities.ExchangeRate;
 import com.example.naumov.illia.illianaumov.main.mvp.model.local.SharedPrefsManager;
 import com.example.naumov.illia.illianaumov.main.mvp.view.activity.CurrencyView;
@@ -29,17 +30,11 @@ public class CurrencyRatesPresenterImpl implements ICurrencyRatesPresenter {
     private Subscription subscription;
 
     @Inject
-    public CurrencyApi currencyApi;
-    @Inject
-    public SharedPrefsManager sharedPrefsManager;
-
-    private List<ExchangeRate> currencyList;
-
+    public ICurrencyRatesInteractor currencyRatesInteractor;
 
     public CurrencyRatesPresenterImpl() {
         MyApp.getCurrencyComponent().inject(this);
 
-        currencyList = new ArrayList<>();
     }
 
     @Override
@@ -49,40 +44,27 @@ public class CurrencyRatesPresenterImpl implements ICurrencyRatesPresenter {
 
     @Override
     public void loadCurrencyData() {
-        currencyView.clearRates();
-        currencyList.clear();
         unsubscribe();
         currencyView.showLoadingDialog();
 
-        String beginDateStr = sharedPrefsManager.getString(Constants.SharedPrefs.BEGIN_DATE_KEY, Utility.formatDate(new Date()));
-        String endDateStr = sharedPrefsManager.getString(Constants.SharedPrefs.END_DATE_KEY, Utility.formatDate(new Date()));
-        List<String> dates = Utility.makeDateList(Utility.parseDate(beginDateStr), Utility.parseDate(endDateStr));
-        String currency = sharedPrefsManager.getString(Constants.SharedPrefs.CURRENCY_KEY, Constants.Currency.USD);
-
-        subscription = Observable.just(dates).flatMap(Observable::from)
-                .flatMap(currDate -> currencyApi.getCurrency(currDate))
-                .flatMap(privat -> Observable.from(privat.getExchangeRate()))
+        subscription = currencyRatesInteractor.getCurrencyRates()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(curr -> curr.getCurrency().equals(currency))
                 .subscribe(
-                        this::addCurrencyRate,
-                        System.err::println,
-                        this::showCurrencies
+                        this::showCurrencies,
+                        System.err::println
                 );
+
     }
 
 
-    private void addCurrencyRate(ExchangeRate exchangeRate) {
-        currencyList.add(exchangeRate);
-    }
-
-    private void showCurrencies() {
+    private void showCurrencies(List<ExchangeRate> exchangeRates) {
         if (isViewAttached()) {
             currencyView.dismissLoadingDialog();
-            currencyView.showCurrencyList(currencyList);
+            currencyView.showCurrencyList(exchangeRates);
         }
     }
+
 
     private boolean isViewAttached() {
         return currencyView != null;
@@ -96,7 +78,7 @@ public class CurrencyRatesPresenterImpl implements ICurrencyRatesPresenter {
 
     @Override
     public void saveCurrencySelection(String currency) {
-        sharedPrefsManager.setString(Constants.SharedPrefs.CURRENCY_KEY, currency);
+        currencyRatesInteractor.saveCurrencySelection(currency);
     }
 
     @Override

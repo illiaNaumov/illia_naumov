@@ -75,6 +75,7 @@ public class DateDialogFragment extends DialogFragment implements DatePickerDial
                 .setView(view)
                 .setPositiveButton("OK",
                         (dialog, whichButton) -> {
+
                             sharedPrefsManager.setString(Constants.SharedPrefs.BEGIN_DATE_KEY, Utility.formatDate(beginDate));
                             sharedPrefsManager.setString(Constants.SharedPrefs.END_DATE_KEY, Utility.formatDate(endDate));
                             currencyRatesPresenter.loadCurrencyData();
@@ -88,6 +89,12 @@ public class DateDialogFragment extends DialogFragment implements DatePickerDial
     }
 
     private void setDates() {
+        beginDate = Utility.parseDate(sharedPrefsManager.getString(Constants.SharedPrefs.BEGIN_DATE_KEY,
+                Utility.formatDate(Calendar.getInstance().getTime())));
+
+        endDate = Utility.parseDate(sharedPrefsManager.getString(Constants.SharedPrefs.END_DATE_KEY,
+                Utility.formatDate(Calendar.getInstance().getTime())));
+
         etBeginDate.setText(sharedPrefsManager.getString(Constants.SharedPrefs.BEGIN_DATE_KEY,
                 Utility.formatDate(Calendar.getInstance().getTime())));
 
