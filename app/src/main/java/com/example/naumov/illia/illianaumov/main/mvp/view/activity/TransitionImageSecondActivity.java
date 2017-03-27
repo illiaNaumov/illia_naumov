@@ -22,8 +22,11 @@ public class TransitionImageSecondActivity extends AppCompatActivity {
     Toolbar toolbar;
     @BindView(R.id.iv_second)
     ImageView ivSecond;
+    @BindView(R.id.tvNewsTitle)
+    TextView tvNewsTitle;
     @BindView(R.id.txt_news_post)
     TextView txtNewsPost;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,7 @@ public class TransitionImageSecondActivity extends AppCompatActivity {
         Article article = getIntent().getParcelableExtra("news_post");
         Picasso.with(this).load(article.getUrlToImage()).into(ivSecond);
 
+        tvNewsTitle.setText(article.getTitle());
         txtNewsPost.setText(article.getDescription());
     }
 

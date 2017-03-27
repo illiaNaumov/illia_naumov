@@ -4,10 +4,12 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/currency"
-            android:title="@string/currency" />
+            android:title="@string/currency"
+            android:icon="@drawable/ic_account_balance"/>
         <item
             android:id="@+id/news"
-            android:title="@string/news" />
+            android:title="@string/news"
+            android:icon="@drawable/ic_action_news"/>
 
     </group>
 

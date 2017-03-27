@@ -5,6 +5,7 @@ import com.example.naumov.illia.illianaumov.main.di.module.NetModule;
 import com.example.naumov.illia.illianaumov.main.mvp.interactor.CurrencyRatesInteractorImpl;
 import com.example.naumov.illia.illianaumov.main.mvp.presenter.CurrencyRatesPresenterImpl;
 import com.example.naumov.illia.illianaumov.main.mvp.view.activity.CurrencyActivity;
+import com.example.naumov.illia.illianaumov.main.mvp.view.activity.MainActivity;
 import com.example.naumov.illia.illianaumov.main.mvp.view.fragment.DateDialogFragment;
 
 import javax.inject.Singleton;
@@ -22,4 +23,5 @@ public interface CurrencyComponent {
     void inject(CurrencyRatesPresenterImpl presenter);
     void inject(DateDialogFragment dateDialogFragment);
     void inject(CurrencyRatesInteractorImpl currencyRatesInteractor);
+    void inject(MainActivity mainActivity);
 }

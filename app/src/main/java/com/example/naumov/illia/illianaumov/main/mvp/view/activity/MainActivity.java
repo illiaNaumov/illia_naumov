@@ -1,21 +1,23 @@
 package com.example.naumov.illia.illianaumov.main.mvp.view.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.naumov.illia.illianaumov.R;
+import com.example.naumov.illia.illianaumov.main.MyApp;
+import com.example.naumov.illia.illianaumov.main.navigation.Navigator;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
-//    @BindView(R.id.toolbar)
-//    Toolbar toolbar;
-
     @BindView(R.id.nvMain)
     NavigationView nvMain;
+    @Inject
+    Navigator navigator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,17 +26,15 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-//        setSupportActionBar(toolbar);
+        MyApp.getCurrencyComponent().inject(this);
 
         nvMain.setNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {
                 case R.id.currency:
-                    Intent intent = new Intent(MainActivity.this, CurrencyActivity.class);
-                    startActivity(intent);
+                    navigator.navigateToCurrencies(this);
                     return true;
                 case R.id.news:
-                    Intent intent1 = new Intent(this, TransitionImageFirstActivity.class);
-                    startActivity(intent1);
+                    navigator.navigateToNews(this);
                     return true;
 
             }
