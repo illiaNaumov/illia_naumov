@@ -9,10 +9,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
+import com.arellomobile.mvp.MvpAppCompatActivity;
+import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.example.naumov.illia.illianaumov.R;
 import com.example.naumov.illia.illianaumov.main.MyApp;
 import com.example.naumov.illia.illianaumov.main.mvp.model.entities.Article;
 import com.example.naumov.illia.illianaumov.main.mvp.presenter.INewsPresenter;
+import com.example.naumov.illia.illianaumov.main.mvp.presenter.NewsPresenterImpl;
 import com.example.naumov.illia.illianaumov.main.mvp.view.ItemClickSupport;
 import com.example.naumov.illia.illianaumov.main.mvp.view.adapter.NewsAdapter;
 
@@ -24,15 +27,15 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TransitionImageFirstActivity extends AppCompatActivity implements INewsView {
+public class TransitionImageFirstActivity extends MvpAppCompatActivity implements INewsView {
 
     @BindView(R.id.recycler_view)
     RecyclerView rvTestString;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    @Inject
-    INewsPresenter newsPresenter;
+    @InjectPresenter
+    NewsPresenterImpl newsPresenter;
 
     private NewsAdapter newsAdapter;
     private List<Article> newsPostList;
@@ -45,7 +48,6 @@ public class TransitionImageFirstActivity extends AppCompatActivity implements I
         ButterKnife.bind(this);
 
         MyApp.getNewsManagerComponent().inject(this);
-        newsPresenter.setView(this);
 
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) {
@@ -72,7 +74,6 @@ public class TransitionImageFirstActivity extends AppCompatActivity implements I
             }
         });
 
-        newsPresenter.loadNews();
     }
 
     @Override

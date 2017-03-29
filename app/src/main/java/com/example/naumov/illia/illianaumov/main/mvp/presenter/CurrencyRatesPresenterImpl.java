@@ -1,6 +1,8 @@
 package com.example.naumov.illia.illianaumov.main.mvp.presenter;
 
+import com.arellomobile.mvp.InjectViewState;
 import com.example.naumov.illia.illianaumov.main.MyApp;
+import com.example.naumov.illia.illianaumov.main.eventbus.LoadCurrencyEvent;
 import com.example.naumov.illia.illianaumov.main.mvp.interactor.ICurrencyRatesInteractor;
 import com.example.naumov.illia.illianaumov.main.mvp.model.entities.ExchangeRate;
 import com.example.naumov.illia.illianaumov.main.mvp.model.local.SharedPrefsManager;
@@ -8,6 +10,10 @@ import com.example.naumov.illia.illianaumov.main.mvp.view.activity.CurrencyView;
 import com.example.naumov.illia.illianaumov.main.retrofit.CurrencyApi;
 import com.example.naumov.illia.illianaumov.main.utils.Constants;
 import com.example.naumov.illia.illianaumov.main.utils.Utility;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,9 +30,9 @@ import rx.schedulers.Schedulers;
  * Created by illia_naumov.
  */
 
-public class CurrencyRatesPresenterImpl implements ICurrencyRatesPresenter {
+@InjectViewState
+public class CurrencyRatesPresenterImpl extends BasePresenter<CurrencyView> implements ICurrencyRatesPresenter {
 
-    private CurrencyView currencyView;
     private Subscription subscription;
 
     @Inject
@@ -35,17 +41,13 @@ public class CurrencyRatesPresenterImpl implements ICurrencyRatesPresenter {
     public CurrencyRatesPresenterImpl() {
         MyApp.getCurrencyComponent().inject(this);
 
-    }
-
-    @Override
-    public void setView(CurrencyView currencyView) {
-        this.currencyView = currencyView;
+        EventBus.getDefault().register(this);
     }
 
     @Override
     public void loadCurrencyData() {
         unsubscribe();
-        currencyView.showLoadingDialog();
+        getViewState().showLoadingDialog();
 
         subscription = currencyRatesInteractor.getCurrencyRates()
                 .subscribeOn(Schedulers.io())
@@ -55,19 +57,13 @@ public class CurrencyRatesPresenterImpl implements ICurrencyRatesPresenter {
                         System.err::println
                 );
 
-    }
+        unsubscribeOnDestroy(subscription);
 
+    }
 
     private void showCurrencies(List<ExchangeRate> exchangeRates) {
-        if (isViewAttached()) {
-            currencyView.dismissLoadingDialog();
-            currencyView.showCurrencyList(exchangeRates);
-        }
-    }
-
-
-    private boolean isViewAttached() {
-        return currencyView != null;
+            getViewState().dismissLoadingDialog();
+            getViewState().showCurrencyList(exchangeRates);
     }
 
     private void unsubscribe() {
@@ -81,10 +77,15 @@ public class CurrencyRatesPresenterImpl implements ICurrencyRatesPresenter {
         currencyRatesInteractor.saveCurrencySelection(currency);
     }
 
-    @Override
-    public void destroy() {
-        currencyView = null;
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(LoadCurrencyEvent event) {
+        loadCurrencyData();
+    }
 
-        unsubscribe();
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        EventBus.getDefault().unregister(this);
     }
 }

@@ -31,7 +31,8 @@ public class CurrencyRatesInteractorImpl implements ICurrencyRatesInteractor {
 
     @Override
     public Observable<List<ExchangeRate>> getCurrencyRates(){
-        return Observable.just(getDates()).flatMap(Observable::from)
+        return Observable.just(getDates())
+                .flatMap(Observable::from)
                 .flatMap(currDate -> currencyApi.getCurrency(currDate))
                 .flatMap(privat -> Observable.from(privat.getExchangeRate()))
                 .filter(curr -> curr.getCurrency().equals(getCurrency()))

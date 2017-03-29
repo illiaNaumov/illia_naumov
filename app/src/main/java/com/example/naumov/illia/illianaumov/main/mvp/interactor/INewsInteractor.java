@@ -1,6 +1,9 @@
 package com.example.naumov.illia.illianaumov.main.mvp.interactor;
 
+import com.example.naumov.illia.illianaumov.main.mvp.model.entities.Article;
 import com.example.naumov.illia.illianaumov.main.mvp.model.entities.News;
+
+import java.util.List;
 
 import rx.Observable;
 
@@ -9,5 +12,5 @@ import rx.Observable;
  */
 
 public interface INewsInteractor {
-    Observable<News> getNews();
+    Observable<List<Article>> getNews();
 }

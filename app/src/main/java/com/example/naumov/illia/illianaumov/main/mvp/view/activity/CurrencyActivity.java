@@ -9,10 +9,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.arellomobile.mvp.MvpAppCompatActivity;
+import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.example.naumov.illia.illianaumov.main.MyApp;
 import com.example.naumov.illia.illianaumov.R;
 import com.example.naumov.illia.illianaumov.main.mvp.model.entities.ExchangeRate;
 import com.example.naumov.illia.illianaumov.main.mvp.model.local.SharedPrefsManager;
+import com.example.naumov.illia.illianaumov.main.mvp.presenter.CurrencyRatesPresenterImpl;
 import com.example.naumov.illia.illianaumov.main.mvp.presenter.ICurrencyRatesPresenter;
 import com.example.naumov.illia.illianaumov.main.mvp.view.adapter.CurrencyRatesAdapter;
 import com.example.naumov.illia.illianaumov.main.mvp.view.fragment.DateDialogFragment;
@@ -30,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CurrencyActivity extends AppCompatActivity implements CurrencyView {
+public class CurrencyActivity extends MvpAppCompatActivity implements CurrencyView {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -39,8 +42,8 @@ public class CurrencyActivity extends AppCompatActivity implements CurrencyView 
 //    @BindView(R.id.et_date)
 //    EditText etDate;
 
-    @Inject
-    public ICurrencyRatesPresenter currencyRatesPresenter;
+    @InjectPresenter
+    public CurrencyRatesPresenterImpl currencyRatesPresenter;
     @Inject
     public SharedPrefsManager sharedPrefsManager;
 
@@ -66,15 +69,12 @@ public class CurrencyActivity extends AppCompatActivity implements CurrencyView 
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        currencyRatesPresenter.setView(this);
-
         currencyList = new ArrayList<>();
         currencyRatesAdapter = new CurrencyRatesAdapter(this);
         currencyRatesAdapter.setCurrencyList(currencyList);
         rvCurrencyRates.setAdapter(currencyRatesAdapter);
         rvCurrencyRates.setLayoutManager(new LinearLayoutManager(this));
 
-        currencyRatesPresenter.loadCurrencyData();
     }
 
     @Override
@@ -118,11 +118,6 @@ public class CurrencyActivity extends AppCompatActivity implements CurrencyView 
         return false;
     }
 
-    @Override
-    public void clearRates(){
-        currencyList.clear();
-    }
-
     @OnClick(R.id.fabDate)
     public void onFabClicked(){
         DateDialogFragment dateDialogFragment = new DateDialogFragment();
@@ -148,13 +143,6 @@ public class CurrencyActivity extends AppCompatActivity implements CurrencyView 
         if(progressDialog != null){
             progressDialog.dismiss();
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        currencyRatesPresenter.destroy();
     }
 
 }

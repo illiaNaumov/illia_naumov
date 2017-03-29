@@ -13,10 +13,13 @@ import android.widget.EditText;
 
 import com.example.naumov.illia.illianaumov.R;
 import com.example.naumov.illia.illianaumov.main.MyApp;
+import com.example.naumov.illia.illianaumov.main.eventbus.LoadCurrencyEvent;
 import com.example.naumov.illia.illianaumov.main.mvp.model.local.SharedPrefsManager;
 import com.example.naumov.illia.illianaumov.main.mvp.presenter.ICurrencyRatesPresenter;
 import com.example.naumov.illia.illianaumov.main.utils.Constants;
 import com.example.naumov.illia.illianaumov.main.utils.Utility;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -78,7 +81,7 @@ public class DateDialogFragment extends DialogFragment implements DatePickerDial
 
                             sharedPrefsManager.setString(Constants.SharedPrefs.BEGIN_DATE_KEY, Utility.formatDate(beginDate));
                             sharedPrefsManager.setString(Constants.SharedPrefs.END_DATE_KEY, Utility.formatDate(endDate));
-                            currencyRatesPresenter.loadCurrencyData();
+                            EventBus.getDefault().post(new LoadCurrencyEvent());
                         }
                 )
                 .setNegativeButton("Cancel",
