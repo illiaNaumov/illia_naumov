@@ -1,5 +1,7 @@
 package com.example.naumov.illia.illianaumov.main.mvp.presenter;
 
+import android.util.Log;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.example.naumov.illia.illianaumov.main.MyApp;
 import com.example.naumov.illia.illianaumov.main.mvp.interactor.INewsInteractor;
@@ -26,7 +28,7 @@ public class NewsPresenterImpl extends BasePresenter<INewsView> implements INews
     public INewsInteractor newsInteractor;
 
     public NewsPresenterImpl() {
-        MyApp.getNewsManagerComponent().inject(this);
+        MyApp.plusNewsManagerComponent().inject(this);
     }
 
     @Override
@@ -46,7 +48,6 @@ public class NewsPresenterImpl extends BasePresenter<INewsView> implements INews
         super.onFirstViewAttach();
 
         loadNews();
-
     }
 
     private void showNews(List<Article> news) {

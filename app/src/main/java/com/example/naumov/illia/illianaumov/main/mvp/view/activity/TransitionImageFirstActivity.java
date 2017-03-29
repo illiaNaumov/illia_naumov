@@ -47,7 +47,7 @@ public class TransitionImageFirstActivity extends MvpAppCompatActivity implement
 
         ButterKnife.bind(this);
 
-        MyApp.getNewsManagerComponent().inject(this);
+        MyApp.plusNewsManagerComponent().inject(this);
 
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) {
@@ -83,5 +83,12 @@ public class TransitionImageFirstActivity extends MvpAppCompatActivity implement
         newsPostList.addAll(news);
 
         newsAdapter.notifyItemRangeInserted(lastBeforeInsert, news.size());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        MyApp.claerNewsManagerComponent();
     }
 }

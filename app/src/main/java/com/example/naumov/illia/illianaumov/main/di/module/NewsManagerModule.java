@@ -1,5 +1,6 @@
 package com.example.naumov.illia.illianaumov.main.di.module;
 
+import com.example.naumov.illia.illianaumov.main.di.scope.NewsScope;
 import com.example.naumov.illia.illianaumov.main.mvp.interactor.INewsInteractor;
 import com.example.naumov.illia.illianaumov.main.mvp.interactor.NewsInteractorImpl;
 import com.example.naumov.illia.illianaumov.main.mvp.presenter.INewsPresenter;
@@ -17,18 +18,14 @@ import dagger.Provides;
 @Module
 public class NewsManagerModule {
 
-    public NewsManagerModule() {
-
-    }
-
     @Provides
-    @Singleton
+    @NewsScope
     INewsPresenter provideNewsPresenter(){
         return new NewsPresenterImpl();
     }
 
     @Provides
-    @Singleton
+    @NewsScope
     INewsInteractor provideNewsInteractor(){
         return new NewsInteractorImpl();
     }

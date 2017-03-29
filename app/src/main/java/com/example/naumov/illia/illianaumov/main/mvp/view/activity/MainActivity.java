@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        MyApp.getCurrencyComponent().inject(this);
+        MyApp.getAppComponent().inject(this);
 
         nvMain.setNavigationItemSelectedListener(menuItem -> {
             switch (menuItem.getItemId()) {

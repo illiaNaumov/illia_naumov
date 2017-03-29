@@ -26,11 +26,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetModule {
 
-    private String mBaseUrl;
+    private String mBaseCurrencyUrl;
+    private String mBaseNewsUrl;
 
-    // Constructor needs one parameter to instantiate.
-    public NetModule(String baseUrl) {
-        this.mBaseUrl = baseUrl;
+    public NetModule(String mBaseCurrencyUrl, String mBaseNewsUrl) {
+        this.mBaseCurrencyUrl = mBaseCurrencyUrl;
+        this.mBaseNewsUrl = mBaseNewsUrl;
     }
 
     // Dagger will only look for methods annotated with @Provides
@@ -57,25 +58,25 @@ public class NetModule {
 
     @Provides
     @Singleton
-    Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
-        Retrofit retrofit = new Retrofit.Builder()
+    CurrencyApi provideCurrencyApi(Gson gson, OkHttpClient okHttpClient){
+        return new Retrofit.Builder()
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl(mBaseUrl)
+                .baseUrl(mBaseCurrencyUrl)
                 .client(okHttpClient)
-                .build();
-        return retrofit;
+                .build()
+                .create(CurrencyApi.class);
     }
 
     @Provides
     @Singleton
-    CurrencyApi provideCurrencyApi(Retrofit retrofit){
-        return retrofit.create(CurrencyApi.class);
-    }
-
-    @Provides
-    @Singleton
-    NewsApi provideNewsApi(Retrofit retrofit){
-        return retrofit.create(NewsApi.class);
+    NewsApi provideNewsApi(Gson gson, OkHttpClient okHttpClient){
+        return new Retrofit.Builder()
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .baseUrl(mBaseNewsUrl)
+                .client(okHttpClient)
+                .build()
+                .create(NewsApi.class);
     }
 }

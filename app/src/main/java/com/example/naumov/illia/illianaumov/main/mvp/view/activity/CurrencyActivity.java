@@ -62,7 +62,7 @@ public class CurrencyActivity extends MvpAppCompatActivity implements CurrencyVi
 
         ButterKnife.bind(this);
 
-        MyApp.getCurrencyComponent().inject(this);
+        MyApp.plusCurrencyComponent().inject(this);
 
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) {
@@ -145,4 +145,10 @@ public class CurrencyActivity extends MvpAppCompatActivity implements CurrencyVi
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        MyApp.clearCurrencyComponent();
+    }
 }

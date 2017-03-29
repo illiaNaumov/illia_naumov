@@ -2,11 +2,12 @@ package com.example.naumov.illia.illianaumov.main;
 
 import android.app.Application;
 
+import com.example.naumov.illia.illianaumov.main.di.component.AppComponent;
 import com.example.naumov.illia.illianaumov.main.di.component.CurrencyComponent;
-import com.example.naumov.illia.illianaumov.main.di.component.DaggerCurrencyComponent;
+import com.example.naumov.illia.illianaumov.main.di.component.DaggerAppComponent;
+import com.example.naumov.illia.illianaumov.main.di.module.AppModule;
 import com.example.naumov.illia.illianaumov.main.di.module.CurrencyModule;
 import com.example.naumov.illia.illianaumov.main.di.module.NetModule;
-import com.example.naumov.illia.illianaumov.main.di.component.DaggerNewsManagerComponent;
 import com.example.naumov.illia.illianaumov.main.di.component.NewsManagerComponent;
 import com.example.naumov.illia.illianaumov.main.di.module.NewsManagerModule;
 import com.example.naumov.illia.illianaumov.main.utils.Constants;
@@ -16,38 +17,50 @@ import com.example.naumov.illia.illianaumov.main.utils.Constants;
  */
 
 public class MyApp extends Application {
+    private static AppComponent appComponent;
     private static NewsManagerComponent newsManagerComponent;
     private static CurrencyComponent currencyComponent;
 
-    public static NewsManagerComponent getNewsManagerComponent() {
-        return newsManagerComponent;
-    }
-
-    public static CurrencyComponent getCurrencyComponent() {
-        return currencyComponent;
+    public static AppComponent getAppComponent() {
+        return appComponent;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        newsManagerComponent = buildComponent();
-        currencyComponent = buildCurrencyComponent();
-
+        appComponent = buildAppComponent();
     }
 
-    private CurrencyComponent buildCurrencyComponent() {
-        return DaggerCurrencyComponent.builder()
-                .currencyModule(new CurrencyModule(this))
-                .netModule(new NetModule(Constants.Currency.CURRENCY_PB_DOMAIN))
+    private AppComponent buildAppComponent() {
+        return DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .netModule(new NetModule(Constants.Currency.CURRENCY_PB_DOMAIN, Constants.News.NEWS_BASE_URL))
                 .build();
     }
 
-    protected NewsManagerComponent buildComponent() {
-        return DaggerNewsManagerComponent.builder()
-                .newsManagerModule(new NewsManagerModule())
-                .netModule(new NetModule(Constants.News.NEWS_BASE_URL))
-                .build();
+    public static CurrencyComponent plusCurrencyComponent() {
+        if(currencyComponent == null) {
+            currencyComponent = appComponent.plusCurrencyComponent(new CurrencyModule());
+        }
+
+        return currencyComponent;
+    }
+
+    public static void clearCurrencyComponent(){
+        currencyComponent = null;
+    }
+
+    public static NewsManagerComponent plusNewsManagerComponent(){
+        if(newsManagerComponent == null){
+            newsManagerComponent = appComponent.plusNewsManagerComponent(new NewsManagerModule());
+        }
+
+        return newsManagerComponent;
+    }
+
+    public static void claerNewsManagerComponent(){
+        newsManagerComponent = null;
     }
 
 }

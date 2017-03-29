@@ -26,7 +26,7 @@ public class CurrencyRatesInteractorImpl implements ICurrencyRatesInteractor {
     public SharedPrefsManager sharedPrefsManager;
 
     public CurrencyRatesInteractorImpl() {
-        MyApp.getCurrencyComponent().inject(this);
+        MyApp.plusCurrencyComponent().inject(this);
     }
 
     @Override

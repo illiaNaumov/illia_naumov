@@ -22,7 +22,7 @@ public class NewsInteractorImpl implements INewsInteractor {
     public NewsApi newsApi;
 
     public NewsInteractorImpl() {
-        MyApp.getNewsManagerComponent().inject(this);
+        MyApp.plusNewsManagerComponent().inject(this);
     }
 
     @Override

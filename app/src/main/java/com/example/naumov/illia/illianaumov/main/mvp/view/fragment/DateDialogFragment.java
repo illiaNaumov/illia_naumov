@@ -42,8 +42,6 @@ public class DateDialogFragment extends DialogFragment implements DatePickerDial
     private static final int END_DATE_CHOSEN = 2;
 
     @Inject
-    ICurrencyRatesPresenter currencyRatesPresenter;
-    @Inject
     SharedPrefsManager sharedPrefsManager;
 
     @BindView(R.id.etBeginDate)
@@ -60,7 +58,7 @@ public class DateDialogFragment extends DialogFragment implements DatePickerDial
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        MyApp.getCurrencyComponent().inject(this);
+        MyApp.getAppComponent().inject(this);
     }
 
     @Override

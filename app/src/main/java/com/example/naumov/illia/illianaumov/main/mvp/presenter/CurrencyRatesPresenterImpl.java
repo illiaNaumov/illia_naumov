@@ -39,7 +39,7 @@ public class CurrencyRatesPresenterImpl extends BasePresenter<CurrencyView> impl
     public ICurrencyRatesInteractor currencyRatesInteractor;
 
     public CurrencyRatesPresenterImpl() {
-        MyApp.getCurrencyComponent().inject(this);
+        MyApp.plusCurrencyComponent().inject(this);
 
         EventBus.getDefault().register(this);
     }
