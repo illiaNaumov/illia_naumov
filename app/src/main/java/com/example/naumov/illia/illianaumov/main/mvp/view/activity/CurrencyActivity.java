@@ -13,10 +13,9 @@ import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.example.naumov.illia.illianaumov.main.MyApp;
 import com.example.naumov.illia.illianaumov.R;
-import com.example.naumov.illia.illianaumov.main.mvp.model.entities.ExchangeRate;
+import com.example.naumov.illia.illianaumov.main.mvp.model.entities.UiCurrency;
 import com.example.naumov.illia.illianaumov.main.mvp.model.local.SharedPrefsManager;
 import com.example.naumov.illia.illianaumov.main.mvp.presenter.CurrencyRatesPresenterImpl;
-import com.example.naumov.illia.illianaumov.main.mvp.presenter.ICurrencyRatesPresenter;
 import com.example.naumov.illia.illianaumov.main.mvp.view.adapter.CurrencyRatesAdapter;
 import com.example.naumov.illia.illianaumov.main.mvp.view.fragment.DateDialogFragment;
 import com.example.naumov.illia.illianaumov.main.utils.Constants;
@@ -39,8 +38,6 @@ public class CurrencyActivity extends MvpAppCompatActivity implements CurrencyVi
     Toolbar toolbar;
     @BindView(R.id.rv_currency_rates)
     RecyclerView rvCurrencyRates;
-//    @BindView(R.id.et_date)
-//    EditText etDate;
 
     @InjectPresenter
     public CurrencyRatesPresenterImpl currencyRatesPresenter;
@@ -49,7 +46,7 @@ public class CurrencyActivity extends MvpAppCompatActivity implements CurrencyVi
 
 
 
-    private List<ExchangeRate> currencyList;
+    private List<UiCurrency> currencyList;
     private CurrencyRatesAdapter currencyRatesAdapter;
     private ProgressDialog progressDialog;
 
@@ -99,9 +96,7 @@ public class CurrencyActivity extends MvpAppCompatActivity implements CurrencyVi
                 currencyRatesPresenter.loadCurrencyData();
                 return true;
             case R.id.btnToday:
-                sharedPrefsManager.setString(Constants.SharedPrefs.BEGIN_DATE_KEY,  Utility.formatDate(Calendar.getInstance().getTime()));
-                sharedPrefsManager.setString(Constants.SharedPrefs.END_DATE_KEY, Utility.formatDate(Calendar.getInstance().getTime()));
-                currencyRatesPresenter.loadCurrencyData();
+                currencyRatesPresenter.loadCurrentDayCurrency();
                 return true;
             case R.id.btnLastWeek:
                 sharedPrefsManager.setString(Constants.SharedPrefs.BEGIN_DATE_KEY, Utility.formatDate(Utility.getWeekEarlierDate(new Date())));
@@ -125,7 +120,7 @@ public class CurrencyActivity extends MvpAppCompatActivity implements CurrencyVi
     }
 
     @Override
-    public void showCurrencyList(List<ExchangeRate> currencyList) {
+    public void showCurrencyList(List<UiCurrency> currencyList) {
         this.currencyList.clear();
         this.currencyList.addAll(currencyList);
         currencyRatesAdapter.notifyDataSetChanged();

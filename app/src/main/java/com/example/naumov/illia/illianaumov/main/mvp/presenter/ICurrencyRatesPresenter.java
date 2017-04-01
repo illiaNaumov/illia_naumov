@@ -7,5 +7,8 @@ package com.example.naumov.illia.illianaumov.main.mvp.presenter;
 
 public interface ICurrencyRatesPresenter {
     void loadCurrencyData();
+
+    void loadCurrentDayCurrency();
+
     void saveCurrencySelection(String currency);
 }

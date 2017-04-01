@@ -1,10 +1,11 @@
 package com.example.naumov.illia.illianaumov.main.mvp.interactor;
 
 import com.example.naumov.illia.illianaumov.main.MyApp;
-import com.example.naumov.illia.illianaumov.main.mvp.model.entities.ExchangeRate;
+import com.example.naumov.illia.illianaumov.main.mvp.model.entities.UiCurrency;
 import com.example.naumov.illia.illianaumov.main.mvp.model.local.SharedPrefsManager;
 import com.example.naumov.illia.illianaumov.main.retrofit.CurrencyApi;
 import com.example.naumov.illia.illianaumov.main.utils.Constants;
+import com.example.naumov.illia.illianaumov.main.utils.MappingUtility;
 import com.example.naumov.illia.illianaumov.main.utils.Utility;
 
 import java.util.Date;
@@ -30,12 +31,13 @@ public class CurrencyRatesInteractorImpl implements ICurrencyRatesInteractor {
     }
 
     @Override
-    public Observable<List<ExchangeRate>> getCurrencyRates(){
+    public Observable<List<UiCurrency>> getCurrencyRates(){
         return Observable.just(getDates())
                 .flatMap(Observable::from)
                 .flatMap(currDate -> currencyApi.getCurrency(currDate))
                 .flatMap(privat -> Observable.from(privat.getExchangeRate()))
-                .filter(curr -> curr.getCurrency().equals(getCurrency()))
+                .filter(curr -> curr.getCurrency().equals(getSavedCurrency()))
+                .map(MappingUtility::mapCurrencyRate)
                 .toList();
     }
 
@@ -45,8 +47,17 @@ public class CurrencyRatesInteractorImpl implements ICurrencyRatesInteractor {
         return Utility.makeDateList(Utility.parseDate(beginDateStr), Utility.parseDate(endDateStr));
     }
 
-    private String getCurrency(){
+    private String getSavedCurrency(){
         return sharedPrefsManager.getString(Constants.SharedPrefs.CURRENCY_KEY, Constants.Currency.USD);
+    }
+
+    @Override
+    public Observable<List<UiCurrency>> getDayCurrency(){
+        return currencyApi.getCurrentDayCurrencies()
+                .flatMap(Observable::from)
+                .filter(curr -> curr.getCcy().equals(getSavedCurrency()))
+                .map(MappingUtility::mapCurrentDayCurrency)
+                .toList();
     }
 
     @Override

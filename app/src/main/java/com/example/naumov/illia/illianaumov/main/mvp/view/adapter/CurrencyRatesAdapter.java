@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.naumov.illia.illianaumov.R;
 import com.example.naumov.illia.illianaumov.main.mvp.model.entities.ExchangeRate;
+import com.example.naumov.illia.illianaumov.main.mvp.model.entities.UiCurrency;
 
 import java.util.List;
 import java.util.Locale;
@@ -22,14 +23,14 @@ import butterknife.ButterKnife;
 
 public class CurrencyRatesAdapter extends RecyclerView.Adapter<CurrencyRatesAdapter.CurrencyViewHolder>{
 
-    private List<ExchangeRate> currencyList;
+    private List<UiCurrency> currencyList;
     private LayoutInflater inflater;
 
     public CurrencyRatesAdapter(Context mContext) {
         inflater = LayoutInflater.from(mContext);
     }
 
-    public void setCurrencyList(List<ExchangeRate> currencyList) {
+    public void setCurrencyList(List<UiCurrency> currencyList) {
         this.currencyList = currencyList;
 
 
@@ -44,9 +45,9 @@ public class CurrencyRatesAdapter extends RecyclerView.Adapter<CurrencyRatesAdap
 
     @Override
     public void onBindViewHolder(CurrencyViewHolder holder, int position) {
-        holder.tvCurrencyName.setText(currencyList.get(position).getCurrency());
-        holder.tvSellPrice.setText(String.format(Locale.US, "%1$,.2f", currencyList.get(position).getSaleRateNB()));
-        holder.tvPurchasePrice.setText(String.format(Locale.US, "%1$,.2f", currencyList.get(position).getPurchaseRateNB()));
+        holder.tvCurrencyName.setText(currencyList.get(position).getCurrencyName());
+        holder.tvSellPrice.setText(String.format(Locale.US, "%1$,.2f", currencyList.get(position).getCurrencySaleRate()));
+        holder.tvPurchasePrice.setText(String.format(Locale.US, "%1$,.2f", currencyList.get(position).getCurrencyBuyRate()));
     }
 
     @Override

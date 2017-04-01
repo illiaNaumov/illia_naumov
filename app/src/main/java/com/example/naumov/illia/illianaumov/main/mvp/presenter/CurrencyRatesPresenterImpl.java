@@ -5,6 +5,7 @@ import com.example.naumov.illia.illianaumov.main.MyApp;
 import com.example.naumov.illia.illianaumov.main.eventbus.LoadCurrencyEvent;
 import com.example.naumov.illia.illianaumov.main.mvp.interactor.ICurrencyRatesInteractor;
 import com.example.naumov.illia.illianaumov.main.mvp.model.entities.ExchangeRate;
+import com.example.naumov.illia.illianaumov.main.mvp.model.entities.UiCurrency;
 import com.example.naumov.illia.illianaumov.main.mvp.model.local.SharedPrefsManager;
 import com.example.naumov.illia.illianaumov.main.mvp.view.activity.CurrencyView;
 import com.example.naumov.illia.illianaumov.main.retrofit.CurrencyApi;
@@ -61,7 +62,7 @@ public class CurrencyRatesPresenterImpl extends BasePresenter<CurrencyView> impl
 
     }
 
-    private void showCurrencies(List<ExchangeRate> exchangeRates) {
+    private void showCurrencies(List<UiCurrency> exchangeRates) {
             getViewState().dismissLoadingDialog();
             getViewState().showCurrencyList(exchangeRates);
     }
@@ -70,6 +71,21 @@ public class CurrencyRatesPresenterImpl extends BasePresenter<CurrencyView> impl
         if (subscription != null) {
             subscription.unsubscribe();
         }
+    }
+
+    @Override
+    public void loadCurrentDayCurrency(){
+        unsubscribe();
+        getViewState().showLoadingDialog();
+
+        subscription = currencyRatesInteractor.getDayCurrency()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::showCurrencies,
+                        System.err::println);
+
+        unsubscribeOnDestroy(subscription);
+
     }
 
     @Override
