@@ -37,10 +37,4 @@
                 android:title="@string/last_month" />
         </menu>
     </item>
-
-    <item android:title="@string/settings"
-        android:id="@+id/settings">
-
-    </item>
-
 </menu>

@@ -122,10 +122,6 @@ public class CurrencyActivity extends MvpAppCompatActivity implements CurrencyVi
                 sharedPrefsManager.setString(Constants.SharedPrefs.END_DATE_KEY, Utility.formatDate(Calendar.getInstance().getTime()));
                 currencyRatesPresenter.loadCurrencyData();
                 return true;
-            case R.id.settings:
-                navigator.navigateToSettingActivity(this);
-                return true;
-
         }
 
         return false;

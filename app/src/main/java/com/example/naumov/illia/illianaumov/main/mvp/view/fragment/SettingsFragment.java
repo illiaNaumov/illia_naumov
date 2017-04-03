@@ -57,7 +57,7 @@ public class SettingsFragment extends PreferenceFragment {
         calendar.set(Calendar.MINUTE, 0);
 
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                5000, createAlarmItent());
+                TimeUnit.DAYS.toMillis(1), createAlarmItent());
     }
 
     private void removeAlarmNotificationService() {
