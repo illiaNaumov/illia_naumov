@@ -32,4 +32,6 @@ public class AppModule {
     SharedPrefsManager provideSharedPrefsManager(){
         return new SharedPrefsManager(mContext);
     }
+
+
 }

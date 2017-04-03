@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.example.naumov.illia.illianaumov.main.mvp.view.activity.CurrencyActivity;
+import com.example.naumov.illia.illianaumov.main.mvp.view.activity.SettingsActivity;
 import com.example.naumov.illia.illianaumov.main.mvp.view.activity.TransitionImageFirstActivity;
 
 import javax.inject.Inject;
@@ -22,15 +23,22 @@ public class Navigator {
 
     public void navigateToCurrencies(Context context){
         if(context != null){
-            Intent intent = new Intent(context, CurrencyActivity.class);
-            context.startActivity(intent);
+            Intent intentToLaunch = CurrencyActivity.getCallingIntent(context);
+            context.startActivity(intentToLaunch);
         }
     }
 
     public void navigateToNews(Context context){
         if(context != null){
-            Intent intent = new Intent(context, TransitionImageFirstActivity.class);
-            context.startActivity(intent);
+            Intent intentToLaunch = TransitionImageFirstActivity.getCallingIntent(context);
+            context.startActivity(intentToLaunch);
+        }
+    }
+
+    public void navigateToSettingActivity(Context context){
+        if(context != null) {
+            Intent intentToLaunch = SettingsActivity.getCallingIntent(context);
+            context.startActivity(intentToLaunch);
         }
     }
 }

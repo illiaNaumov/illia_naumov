@@ -26,7 +26,16 @@
         <activity
             android:name=".main.mvp.view.activity.TransitionImageFirstActivity"
             android:parentActivityName=".main.mvp.view.activity.MainActivity" />
-        <activity android:name=".main.mvp.view.activity.CurrencyActivity" android:parentActivityName=".main.mvp.view.activity.MainActivity"/>
+        <activity
+            android:name=".main.mvp.view.activity.CurrencyActivity"
+            android:parentActivityName=".main.mvp.view.activity.MainActivity" />
+        <activity android:name=".main.mvp.view.activity.SettingsActivity"/>
+
+        <service
+            android:name=".main.services.CurrencyAlarmService"
+            android:enabled="true" />
+
+        <receiver android:name=".main.services.AlarmReceiver" />
     </application>
 
 </manifest>

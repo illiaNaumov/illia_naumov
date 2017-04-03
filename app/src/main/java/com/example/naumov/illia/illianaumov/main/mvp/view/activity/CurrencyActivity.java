@@ -1,7 +1,10 @@
 package com.example.naumov.illia.illianaumov.main.mvp.view.activity;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +21,8 @@ import com.example.naumov.illia.illianaumov.main.mvp.model.local.SharedPrefsMana
 import com.example.naumov.illia.illianaumov.main.mvp.presenter.CurrencyRatesPresenterImpl;
 import com.example.naumov.illia.illianaumov.main.mvp.view.adapter.CurrencyRatesAdapter;
 import com.example.naumov.illia.illianaumov.main.mvp.view.fragment.DateDialogFragment;
+import com.example.naumov.illia.illianaumov.main.navigation.Navigator;
+import com.example.naumov.illia.illianaumov.main.services.AlarmReceiver;
 import com.example.naumov.illia.illianaumov.main.utils.Constants;
 import com.example.naumov.illia.illianaumov.main.utils.Utility;
 
@@ -39,6 +44,8 @@ public class CurrencyActivity extends MvpAppCompatActivity implements CurrencyVi
     @BindView(R.id.rv_currency_rates)
     RecyclerView rvCurrencyRates;
 
+    @Inject
+    Navigator navigator;
     @InjectPresenter
     public CurrencyRatesPresenterImpl currencyRatesPresenter;
     @Inject
@@ -50,7 +57,9 @@ public class CurrencyActivity extends MvpAppCompatActivity implements CurrencyVi
     private CurrencyRatesAdapter currencyRatesAdapter;
     private ProgressDialog progressDialog;
 
-
+    public static Intent getCallingIntent(Context context) {
+        return new Intent(context, CurrencyActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +117,10 @@ public class CurrencyActivity extends MvpAppCompatActivity implements CurrencyVi
                 sharedPrefsManager.setString(Constants.SharedPrefs.END_DATE_KEY, Utility.formatDate(Calendar.getInstance().getTime()));
                 currencyRatesPresenter.loadCurrencyData();
                 return true;
+            case R.id.settings:
+                navigator.navigateToSettingActivity(this);
+                return true;
+
         }
 
         return false;
@@ -146,4 +159,5 @@ public class CurrencyActivity extends MvpAppCompatActivity implements CurrencyVi
 
         MyApp.clearCurrencyComponent();
     }
+
 }

@@ -1,6 +1,7 @@
 package com.example.naumov.illia.illianaumov.main.mvp.view.activity;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -39,6 +40,10 @@ public class TransitionImageFirstActivity extends MvpAppCompatActivity implement
 
     private NewsAdapter newsAdapter;
     private List<Article> newsPostList;
+
+    public static Intent getCallingIntent(Context context) {
+        return new Intent(context, TransitionImageFirstActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,4 +96,6 @@ public class TransitionImageFirstActivity extends MvpAppCompatActivity implement
 
         MyApp.claerNewsManagerComponent();
     }
+
+
 }

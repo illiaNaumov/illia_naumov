@@ -2,6 +2,7 @@ package com.example.naumov.illia.illianaumov.main;
 
 import android.app.Application;
 
+import com.example.naumov.illia.illianaumov.BuildConfig;
 import com.example.naumov.illia.illianaumov.main.di.component.AppComponent;
 import com.example.naumov.illia.illianaumov.main.di.component.CurrencyComponent;
 import com.example.naumov.illia.illianaumov.main.di.component.DaggerAppComponent;
@@ -12,6 +13,9 @@ import com.example.naumov.illia.illianaumov.main.di.component.NewsManagerCompone
 import com.example.naumov.illia.illianaumov.main.di.module.NewsManagerModule;
 import com.example.naumov.illia.illianaumov.main.utils.Constants;
 
+import timber.log.Timber;
+
+import static timber.log.Timber.DebugTree;
 /**
  * Created by illia_naumov.
  */
@@ -30,6 +34,10 @@ public class MyApp extends Application {
         super.onCreate();
 
         appComponent = buildAppComponent();
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new DebugTree());
+        }
     }
 
     private AppComponent buildAppComponent() {
