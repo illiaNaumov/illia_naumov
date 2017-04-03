@@ -55,9 +55,13 @@ public class CurrencyRatesInteractorImpl implements ICurrencyRatesInteractor {
     public Observable<List<UiCurrency>> getDayCurrency(){
         return currencyApi.getCurrentDayCurrencies()
                 .flatMap(Observable::from)
-                .filter(curr -> curr.getCcy().equals(getSavedCurrency()))
+                .filter(curr -> curr.getCcy().equals(getValidCurrencyName(getSavedCurrency())))
                 .map(MappingUtility::mapCurrentDayCurrency)
                 .toList();
+    }
+
+    private String getValidCurrencyName(String currencyName){
+        return currencyName.equals("RUB") ? "RUR" : currencyName;
     }
 
     @Override
