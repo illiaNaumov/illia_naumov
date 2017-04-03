@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="currency_settings_key_array">
+        <item>@string/usd</item>
+        <item>@string/rub</item>
+        <item>@string/eur</item>
+    </string-array>
+
+    <string-array name="currency_settings_value_array">
+        <item>USD</item>
+        <item>RUR</item>
+        <item>EUR</item>
+    </string-array>
+    
+</resources>

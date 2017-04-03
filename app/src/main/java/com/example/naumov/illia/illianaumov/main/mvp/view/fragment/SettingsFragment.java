@@ -13,8 +13,8 @@ import com.example.naumov.illia.illianaumov.R;
 import com.example.naumov.illia.illianaumov.main.services.AlarmReceiver;
 
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
-import timber.log.Timber;
 
 /**
  * Created by illia_naumov.
@@ -24,7 +24,9 @@ public class SettingsFragment extends PreferenceFragment {
 
     public static final String KEY_PREF_SEND_NOTIFICATION = "prefSendNotification";
 
+
     private SharedPreferences.OnSharedPreferenceChangeListener listener;
+    private AlarmManager alarmMgr;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +35,8 @@ public class SettingsFragment extends PreferenceFragment {
         addPreferencesFromResource(R.xml.preferences);
 
         initOnPreferenceChangedListener();
+
+        alarmMgr = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
     }
 
     private void initOnPreferenceChangedListener() {
@@ -48,28 +52,22 @@ public class SettingsFragment extends PreferenceFragment {
     }
 
     private void setAlarmNotificationService() {
-        AlarmManager alarmMgr = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(getActivity(), AlarmReceiver.class);
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, 0);
-
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, 11);
         calendar.set(Calendar.MINUTE, 0);
 
         alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                5000, alarmIntent);
+                5000, createAlarmItent());
     }
 
     private void removeAlarmNotificationService() {
-        AlarmManager alarmMgr = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(getActivity(), AlarmReceiver.class);
-        PendingIntent alarmIntent = PendingIntent.getBroadcast(getActivity(), 0, intent, 0);
-
         if (alarmMgr!= null) {
-            alarmMgr.cancel(alarmIntent);
+            alarmMgr.cancel(createAlarmItent());
         }
+    }
 
-        Timber.e("removeAlarmNotificationService");
+    private PendingIntent createAlarmItent(){
+        return PendingIntent.getBroadcast(getActivity(), 0, new Intent(getActivity(), AlarmReceiver.class), 0);
     }
 
     @Override

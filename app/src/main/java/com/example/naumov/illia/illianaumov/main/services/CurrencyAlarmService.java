@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
@@ -15,6 +16,7 @@ import com.example.naumov.illia.illianaumov.main.MyApp;
 import com.example.naumov.illia.illianaumov.main.mvp.model.entities.UiCurrency;
 import com.example.naumov.illia.illianaumov.main.mvp.view.activity.CurrencyActivity;
 import com.example.naumov.illia.illianaumov.main.retrofit.CurrencyApi;
+import com.example.naumov.illia.illianaumov.main.utils.Constants;
 import com.example.naumov.illia.illianaumov.main.utils.MappingUtility;
 
 import javax.inject.Inject;
@@ -33,6 +35,8 @@ public class CurrencyAlarmService extends Service {
     @Inject
     public CurrencyApi currencyApi;
 
+
+
     Subscription subscription;
 
     @Override
@@ -50,7 +54,7 @@ public class CurrencyAlarmService extends Service {
 
         subscription = currencyApi.getCurrentDayCurrencies()
                 .flatMap(Observable::from)
-                .filter(curr -> curr.getCcy().equals("USD"))
+                .filter(curr -> curr.getCcy().equals(PreferenceManager.getDefaultSharedPreferences(this).getString(Constants.SharedPrefs.CHECKED_CURRENCY, Constants.Currency.USD)))
                 .map(MappingUtility::mapCurrentDayCurrency)
                 .take(1)
                 .subscribeOn(Schedulers.io())
@@ -65,30 +69,29 @@ public class CurrencyAlarmService extends Service {
     }
 
     private void checkCurrencyRate(UiCurrency uiCurrency) {
-        if (uiCurrency.getCurrencyBuyRate() > 10) {
-            sendNotification();
+        Timber.e("rate =" + uiCurrency.getCurrencyBuyRate());
+        if (uiCurrency.getCurrencyBuyRate() > Double.parseDouble(PreferenceManager.getDefaultSharedPreferences(this).getString(Constants.SharedPrefs.CHECKED_CURRENCY_VALUE, "10"))) {
+            sendNotification(uiCurrency);
         }
     }
 
-    private void sendNotification() {
+    private void sendNotification(UiCurrency uiCurrency) {
         Timber.e("sendNotification");
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("My notification")
-                        .setContentText("Hello World!");
-// Creates an explicit intent for an Activity in your app
-        Intent resultIntent = new Intent(this, CurrencyActivity.class);
+                        .setContentTitle("The currency has raised")
+                        .setContentText(uiCurrency.getCurrencyName() + " = " + uiCurrency.getCurrencyBuyRate())
+                        .setAutoCancel(true);
 
-// The stack builder object will contain an artificial back stack for the
-// started Activity.
-// This ensures that navigating backward from the Activity leads out of
-// your application to the Home screen.
+
+        Intent resultIntent = new Intent(this, CurrencyActivity.class);
+        resultIntent.putExtra(Constants.Bundles.IS_FROM_NOTIFICATION, true);
+        resultIntent.putExtra(Constants.Bundles.CURRENCY_NAME, uiCurrency.getCurrencyName());
+
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-// Adds the back stack for the Intent (but not the Intent itself)
         stackBuilder.addParentStack(CurrencyActivity.class);
-// Adds the Intent that starts the Activity to the top of the stack
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =
                 stackBuilder.getPendingIntent(
@@ -98,7 +101,7 @@ public class CurrencyAlarmService extends Service {
         mBuilder.setContentIntent(resultPendingIntent);
         NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-// mId allows you to update the notification later on.
+
         mNotificationManager.notify(1, mBuilder.build());
     }
 

@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="General">
+    <PreferenceCategory android:title="Currency">
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="prefSendNotification"
             android:title="Regular currency notification " />
 
+        <ListPreference
+            android:defaultValue="@string/usd"
+            android:entries="@array/currency_settings_key_array"
+            android:entryValues="@array/currency_settings_value_array"
+            android:key="prefCheckedCurrency"
+            android:title="Checked currency" />
+
+        <EditTextPreference
+            android:defaultValue="20"
+            android:inputType="numberDecimal"
+            android:key="prefCheckedCurrencyValue"
+            android:maxLength="20"
+            android:title="Checked currency value" />
     </PreferenceCategory>
+
 </PreferenceScreen>

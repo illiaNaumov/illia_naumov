@@ -26,6 +26,14 @@ public class Constants {
         public static final String CURRENCY_KEY = "currency";
         public static final String BEGIN_DATE_KEY = "beginDate";
         public static final String END_DATE_KEY = "endDate";
+        public static final String CHECKED_CURRENCY = "prefCheckedCurrency";
+        public static final String CHECKED_CURRENCY_VALUE = "prefCheckedCurrencyValue";
+
+    }
+
+    public static class Bundles{
+        public static final String IS_FROM_NOTIFICATION = "com.example.naumov.illia.illianaumov.IS_FROM_NOTIFICATION";
+        public static final String CURRENCY_NAME = "com.example.naumov.illia.illianaumov.CURRENCY_NAME";
     }
 
 }

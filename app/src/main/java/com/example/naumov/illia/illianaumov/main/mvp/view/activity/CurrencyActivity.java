@@ -1,7 +1,5 @@
 package com.example.naumov.illia.illianaumov.main.mvp.view.activity;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +20,6 @@ import com.example.naumov.illia.illianaumov.main.mvp.presenter.CurrencyRatesPres
 import com.example.naumov.illia.illianaumov.main.mvp.view.adapter.CurrencyRatesAdapter;
 import com.example.naumov.illia.illianaumov.main.mvp.view.fragment.DateDialogFragment;
 import com.example.naumov.illia.illianaumov.main.navigation.Navigator;
-import com.example.naumov.illia.illianaumov.main.services.AlarmReceiver;
 import com.example.naumov.illia.illianaumov.main.utils.Constants;
 import com.example.naumov.illia.illianaumov.main.utils.Utility;
 
@@ -81,6 +78,14 @@ public class CurrencyActivity extends MvpAppCompatActivity implements CurrencyVi
         rvCurrencyRates.setAdapter(currencyRatesAdapter);
         rvCurrencyRates.setLayoutManager(new LinearLayoutManager(this));
 
+        checkIfStartedFromNotification();
+    }
+
+    private void checkIfStartedFromNotification() {
+        if(getIntent().hasExtra(Constants.Bundles.IS_FROM_NOTIFICATION)){
+            currencyRatesPresenter.saveCurrencySelection(getIntent().getStringExtra(Constants.Bundles.CURRENCY_NAME));
+            currencyRatesPresenter.loadCurrentDayCurrency();
+        }
     }
 
     @Override

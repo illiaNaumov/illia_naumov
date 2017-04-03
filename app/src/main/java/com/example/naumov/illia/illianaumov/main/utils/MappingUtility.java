@@ -20,7 +20,7 @@ public class MappingUtility {
 
     public static UiCurrency mapCurrentDayCurrency(DayCurrency dayCurrency){
 
-        return new UiCurrency(dayCurrency.getBaseCcy(),
+        return new UiCurrency(dayCurrency.getCcy(),
                 Double.parseDouble(dayCurrency.getBuy()),
                 Double.parseDouble(dayCurrency.getSale()));
     }

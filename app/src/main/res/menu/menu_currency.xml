@@ -38,7 +38,7 @@
         </menu>
     </item>
 
-    <item android:title="settings"
+    <item android:title="@string/settings"
         android:id="@+id/settings">
 
     </item>

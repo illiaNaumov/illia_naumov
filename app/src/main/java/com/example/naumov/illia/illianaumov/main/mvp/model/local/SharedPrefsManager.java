@@ -34,4 +34,9 @@ public class SharedPrefsManager
         editor.apply();
 
     }
+
+    public Float getFloat(final String key, final float defValue)
+    {
+        return preferences.getFloat(key, defValue);
+    }
 }

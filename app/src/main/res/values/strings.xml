@@ -14,4 +14,5 @@
     <string name="rub">RUB</string>
     <string name="eur">EUR</string>
     <string name="today">Today</string>
+    <string name="settings">Settings</string>
 </resources>
